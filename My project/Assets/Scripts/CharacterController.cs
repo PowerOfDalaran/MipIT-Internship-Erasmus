@@ -4,34 +4,70 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    float movementSpeed = 3;
+    //[SerializeField]
+    //float movementSpeed = 2;
+    [SerializeField]
+    float maxVelocity = 3;
+    [SerializeField]
     float rotationSpeed = 3;
-    float maxSpeed = 3;
 
-    Rigidbody2D rigidBody;
+    Weapon currentWeapon;
+    Rigidbody2D rigidBody2D;
 
     void Awake()
     {
-
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        currentWeapon = gameObject.GetComponent<Weapon>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        //Getting input
+        float yAxis = Input.GetAxis("Vertical");
+        float xAxis = Input.GetAxis("Horizontal");
 
+        //Moving and rotating if input positive
+        ThrustForward(yAxis);
+        Rotate(transform, -xAxis * rotationSpeed);
+
+        //Activating weapon
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            UseWeapon();
+        }
     }
 
-    public void Shoot()
+    //Firing weapon if its ready
+    void UseWeapon()
     {
-
+        if (currentWeapon.canFire)
+        {
+            currentWeapon.Fire();
+        }
+        else
+        {
+            Debug.Log("Weapon on cooldown!");
+        }
     }
 
-    public void Move()
+    //Movement
+    private void ClampVelocity()
     {
-       
+        float x = Mathf.Clamp(rigidBody2D.velocity.x, -maxVelocity, maxVelocity);
+        float y = Mathf.Clamp(rigidBody2D.velocity.y, -maxVelocity, maxVelocity);
+
+        rigidBody2D.velocity = new Vector2(x,y);
     }
 
-    public void Rotate()
+    private void ThrustForward(float amount)
     {
+        Vector2 force = transform.up * amount;
+        rigidBody2D.AddForce(force);
+    }
 
+    //Rotation
+    private void Rotate(Transform t, float amount)
+    {
+        t.Rotate(0, 0, amount);
     }
 }
