@@ -8,7 +8,7 @@ public class Ship : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     bool forceOn = false;
-    float forceAmount = 10.0f;
+    float forceAmount = -10.0f;
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
 
@@ -30,12 +30,6 @@ public class Ship : MonoBehaviour
 
         //move forward
         forceOn = Input.GetKey(KeyCode.W);
-
-        //move back
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            transform.RotateAround(transform.position, new Vector3(0, 0, 1), 180f);
-        }
 
         //move right/left
         if(Input.GetKey(KeyCode.A))
