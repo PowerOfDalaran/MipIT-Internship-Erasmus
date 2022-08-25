@@ -4,14 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
-  - Projectile
-=======
   - Background
   - Ship
   - Bullet
   - Asteroid
->>>>>>> 1d0534c31d3a9f3b5563eceabeb9f1c1ca568419
   layers:
   - Default
   - TransparentFX
