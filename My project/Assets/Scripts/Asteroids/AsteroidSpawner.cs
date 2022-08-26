@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class AsteroidSpawner : MonoBehaviour
 {
     public Asteroids asteroids;
     float spawnRate = 2.0f;
