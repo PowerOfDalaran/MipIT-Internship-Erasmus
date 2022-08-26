@@ -151,10 +151,10 @@ public class CharacterController : MonoBehaviour
     //Initating death of the player and his respawn - probably need to debug it later
     void GetRekt()
     {
-        transform.position = new Vector2(4000f, 4000f);
+        transform.position = new Vector2(0f, 0f);
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
-        turnOnVisibility();
+        turnOffVisibility();
         Invoke("Respawn", 3f);
     }
 
@@ -167,9 +167,9 @@ public class CharacterController : MonoBehaviour
     //Respawning player
     void Respawn()
     {
-        transform.position = new Vector2(0f, 0f);
-        transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        Invoke("turnOnCollisions", 3f);
+        //transform.position = new Vector2(0f, 0f);
+        //transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        Invoke("turnOnVisibility", 3f);
     }
 
     //Making player mortal
