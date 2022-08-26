@@ -68,7 +68,7 @@ public class CharacterController : MonoBehaviour
     {
         if(forceOn)
         {
-            rigidBody2D.AddForce(transform.up * forceAmount);
+            rigidBody2D.AddForce(-transform.up * forceAmount);
         }
 
         if(torqueDirection!=0)
@@ -155,7 +155,7 @@ public class CharacterController : MonoBehaviour
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
         turnOnVisibility();
-        Invoke("reset", 3f);
+        Invoke("Respawn", 3f);
     }
 
     //Making player immortal

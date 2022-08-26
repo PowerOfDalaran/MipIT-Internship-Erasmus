@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    public Asteroids asteroids;
+    public AsteroidController asteroids;
     float spawnRate = 2.0f;
     float spawnDistance = 14f;
 
@@ -21,7 +21,7 @@ public class AsteroidSpawner : MonoBehaviour
         float angle = Random.Range(-15f, 15f);
 
         Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-        Asteroids theAsteroids = Instantiate(asteroids, spawnPoint, rotation);
+        AsteroidController theAsteroids = Instantiate(asteroids, spawnPoint, rotation);
 
         //Calculating the direction of generated asteroid
         Vector2 direction = rotation * -spawnPoint;
