@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroids : MonoBehaviour
+public class AsteroidController : MonoBehaviour
 {
     public Sprite[] sprites;
     Rigidbody2D rigidBody2D;
@@ -69,7 +69,7 @@ public class Asteroids : MonoBehaviour
         Vector2 position = this.transform.position;
         position += Random.insideUnitCircle * 0.5f;
 
-        Asteroids small = Instantiate(this, position, this.transform.rotation);
+        AsteroidController small = Instantiate(this, position, this.transform.rotation);
         Vector2 direction = Random.insideUnitCircle;
         float mass = rigidBody2D.mass / 2;
         small.ShoveAtRandom(mass, direction);
