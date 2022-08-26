@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:My project/Assets/Scripts/CharacterController.cs.meta
+guid: cc79c4c7026d20d4bb4ed11c0dc6d37c
+========
+guid: 2613326604696964a864d83baf06451a
+>>>>>>>> 1d0534c31d3a9f3b5563eceabeb9f1c1ca568419:My project/Assets/Scripts/Asteroids.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
