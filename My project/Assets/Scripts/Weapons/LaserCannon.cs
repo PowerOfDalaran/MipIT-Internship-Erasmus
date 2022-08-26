@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicLaserCannon : Weapon
+public class LaserCannon : Weapon
 {
     // Start is called before the first frame update
     void Start()
@@ -16,14 +16,15 @@ public class BasicLaserCannon : Weapon
         
     }
 
-    //Method launching the weapon
+    //Method launching the weapon - some problems with rotating the projectiles
     public override void Fire()
     {
         base.Fire();
-        GameObject projectile = Instantiate(projectilePrefab, weaponPosition, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z + 90, gameObject.transform.rotation.w));
-        Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
+        GameObject projectile = Instantiate(projectilePrefab, weaponPosition, Quaternion.identity);
+        //projectile.transform.Rotate(new Vector3(0, 0, 90));
+        projectile.GetComponent<Projectile>().LaunchProjectile(gameObject.transform.up);
         //projectileRigidBody.velocity = transform.forward * projectileSpeed;
         //projectileRigidBody.AddForce(gameObject.transform.forward);
-        //Debug.Log(gameObject.transform.forward);
+        //Debug.Log(gameObject.transform.rotation);
     }
 }

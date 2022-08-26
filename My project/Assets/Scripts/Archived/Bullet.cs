@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+    /// ARCHIVED ///
 
 public class Bullet : MonoBehaviour
 {
@@ -12,11 +12,13 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    //  USED
     public void shoot(Vector2 direciton)
     {
         rb.velocity = direciton.normalized * speed;
     }
 
+    //  NOT USED
     void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Background")
@@ -25,6 +27,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    //  NOT USED
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Asteroid")

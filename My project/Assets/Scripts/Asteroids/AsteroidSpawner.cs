@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -8,28 +6,28 @@ public class Spawner : MonoBehaviour
     float spawnRate = 2.0f;
     float spawnDistance = 14f;
 
-    // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("spawn", 0f, spawnRate);
     }
 
-    void spawn()
+    //Method spawning asteroids, randomizing their mass and rotation, calculating their direction and setting them into motion
+    void spawnAsteroid()
     {
-        //spawn point 
+        //Choosing position for spawning the asteroid
         Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
 
-        //rotation
+        //Randomizing the position of spawned asteroid
         float angle = Random.Range(-15f, 15f);
 
         Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
         Asteroids theAsteroids = Instantiate(asteroids, spawnPoint, rotation);
 
-        //size/direction
+        //Calculating the direction of generated asteroid
         Vector2 direction = rotation * -spawnPoint;
+
+        //Randomizing the mass of asteroid and throwing it in chosen direction
         float mass = Random.Range(0.8f, 1.4f);
-        theAsteroids.kick(mass, direction);
+        theAsteroids.ShoveAtRandom(mass, direction);
     }
-
-
 }

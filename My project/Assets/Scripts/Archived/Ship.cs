@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+    /// ARCHIVED ///
+
 public class Ship : MonoBehaviour
 {
     public Bullet bullet;
@@ -22,12 +24,14 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //  STRZELANIE
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Bullet theBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             theBullet.shoot(transform.up);
         }
 
+        //  NOWE PORUSZANIE GRACZA
         //move forward
         forceOn = Input.GetKey(KeyCode.W);
 
@@ -44,8 +48,10 @@ public class Ship : MonoBehaviour
         {
             torqueDirection = 0f;
         }
-        wrapAroundBoundary();
+        //wrapAroundBoundary();
     }
+
+    /**
     void wrapAroundBoundary()
     {
         float x = transform.position.x;
@@ -70,7 +76,9 @@ public class Ship : MonoBehaviour
         }
         transform.position = new Vector2(x, y);
     }
+    **/
 
+    //  NOWE PORUSZANIE GRACZA
     private void FixedUpdate()
     {
         if(forceOn)
@@ -84,6 +92,7 @@ public class Ship : MonoBehaviour
         }
     }
 
+    /**
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Asteroid")
@@ -112,4 +121,5 @@ public class Ship : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Ship");
     }
+    **/
 }

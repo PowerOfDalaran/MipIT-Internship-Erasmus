@@ -8,8 +8,6 @@ public abstract class Weapon : MonoBehaviour
     protected GameObject projectilePrefab;
     [SerializeField]
     protected float fireCooldown = 2;
-    [SerializeField]
-    protected float projectileSpeed = 2;
 
     protected float cooldownCounter = 0;
     protected Vector3 weaponPosition;
