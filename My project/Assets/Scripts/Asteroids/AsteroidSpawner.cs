@@ -5,29 +5,60 @@ public class AsteroidSpawner : MonoBehaviour
     public AsteroidController asteroids;
     float spawnRate = 2.0f;
     float spawnDistance = 14f;
+    [SerializeField]
+    GameObject smallAsteroidPrefab;
+    [SerializeField]
+    GameObject mediumAsteroidPrefab;
+    [SerializeField]
+    GameObject bigAsteroidPrefab;
+    [SerializeField]
+    GameObject hugeAsteroidPrefab;
 
-    void Start()
+    void Awake()
     {
         InvokeRepeating("spawn", 0f, spawnRate);
     }
 
-    //Method spawning asteroids, randomizing their mass and rotation, calculating their direction and setting them into motion
+    //Spawn asteroid
     void spawnAsteroid()
     {
+        //Randomizing mass and choosing prefab
+        GameObject randomizedPrefab = null;
+        float mass = Random.Range(1, 4);
+
+        switch(mass)
+        {
+            case 4:
+                randomizedPrefab = hugeAsteroidPrefab;
+                break;
+            case 3:
+                randomizedPrefab = bigAsteroidPrefab;
+                break;
+            case 2:
+                randomizedPrefab = mediumAsteroidPrefab;
+                break;
+            case 1:
+                randomizedPrefab = smallAsteroidPrefab;
+                break;
+
+            default:
+                Debug.Log("An error has occured.");
+                break;
+        }
+
         //Choosing position for spawning the asteroid
         Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
 
-        //Randomizing the position of spawned asteroid
+        //Randomizing the rotation of spawned asteroid
         float angle = Random.Range(-15f, 15f);
-
         Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-        AsteroidController theAsteroids = Instantiate(asteroids, spawnPoint, rotation);
+        
+        //Spawning asteroid and setting its mass
+        AsteroidController spawnedAsteroid = Instantiate(randomizedPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
+        spawnedAsteroid.gameObject.GetComponent<Rigidbody2D>().mass = mass;
 
-        //Calculating the direction of generated asteroid
+        //Calculating the direction of generated asteroid and throwing it in chosen direction
         Vector2 direction = rotation * -spawnPoint;
-
-        //Randomizing the mass of asteroid and throwing it in chosen direction
-        float mass = Random.Range(0.8f, 1.4f);
-        theAsteroids.ShoveAtRandom(mass, direction);
+        spawnedAsteroid.ShoveAtRandom(mass, direction);
     }
 }

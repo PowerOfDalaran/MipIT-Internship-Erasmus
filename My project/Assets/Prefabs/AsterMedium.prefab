@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7696787087484126841}
   - component: {fileID: 4403963082967506081}
   - component: {fileID: 5352632954683609206}
-  - component: {fileID: 6452771247226967430}
+  - component: {fileID: 7862270369410112759}
   m_Layer: 11
-  m_Name: AsterHuge1
+  m_Name: AsterMedium
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,7 +161,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6452771247226967430
+--- !u!114 &7862270369410112759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,11 +170,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4288111556040446232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2613326604696964a864d83baf06451a, type: 3}
+  m_Script: {fileID: 11500000, guid: cc79c4c7026d20d4bb4ed11c0dc6d37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300006, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
+  possibleSprites:
   - {fileID: 21300014, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300024, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
+  - {fileID: 21300016, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
+  - {fileID: 21300018, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
+  smallerAsteroidPrefab: {fileID: 4288111556040446232, guid: 48815f70bb3dde74f93098a23db8a179, type: 3}
