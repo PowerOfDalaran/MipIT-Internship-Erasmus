@@ -7,7 +7,7 @@ public class CharacterController : MonoBehaviour
     //[SerializeField]
     //float movementSpeed = 2;
     [SerializeField]
-    float maxVelocity = 3;
+    float speed = 3;
     [SerializeField]
     float rotationSpeed = 3;
 
@@ -68,12 +68,12 @@ public class CharacterController : MonoBehaviour
     {
         if(forceOn)
         {
-            rigidBody2D.AddForce(-transform.up * forceAmount);
+            rigidBody2D.AddForce(-transform.up * forceAmount * speed);
         }
 
         if(torqueDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
+            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
         }
     }
 
