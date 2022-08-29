@@ -7,7 +7,7 @@ public class LaserCannonProjectile : Projectile
         base.Awake();
 
         projectileSpeed = 10;
-        maxDistance = 30;
+        maxDistance = 50;
     }
 
 

@@ -34,7 +34,7 @@ public abstract class Projectile : MonoBehaviour
     //Destroying projectile on contact
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag != "Player" && other.gameObject.transform.tag != "Projectile")
+        if(other.gameObject.tag != "Player" && other.gameObject.tag != "Projectile" && other.gameObject.tag != "Teleport")
         {
             DestroyProjectile();
         }
@@ -46,7 +46,7 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-        //ALBER.EXE
+    //ALBERT.EXE
     protected bool NoBitches(string bitches)
     {
         bitches = "No bitches? O.o";

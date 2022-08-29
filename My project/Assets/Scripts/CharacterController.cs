@@ -60,7 +60,7 @@ public class CharacterController : MonoBehaviour
         }
 
         //Calling the teleporting method
-        wrapAroundBoundary();
+        //wrapAroundBoundary();
     }
 
     //Adding velocity to the player or reducing it, depending if key is on or off
@@ -114,6 +114,7 @@ public class CharacterController : MonoBehaviour
     */
 
     //Teleporting player to opposite part of the map - probably gonna delete later, needed for the tutorial
+    /*
     void wrapAroundBoundary()
     {
         float x = transform.position.x;
@@ -138,6 +139,7 @@ public class CharacterController : MonoBehaviour
         }
         transform.position = new Vector2(x, y);
     }
+    */
 
     //Checking if player got rekt - probably need to debug it later
     void OnCollisionEnter2D(Collision2D collision)

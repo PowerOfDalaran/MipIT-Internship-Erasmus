@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -178,3 +178,4 @@ MonoBehaviour:
   - {fileID: 21300016, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   - {fileID: 21300018, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   smallerAsteroidPrefab: {fileID: 4288111556040446232, guid: 48815f70bb3dde74f93098a23db8a179, type: 3}
+  speed: 2

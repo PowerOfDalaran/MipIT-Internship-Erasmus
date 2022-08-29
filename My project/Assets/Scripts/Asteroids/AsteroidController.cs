@@ -13,7 +13,7 @@ public class AsteroidController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     PolygonCollider2D polygonCollider2D;
     
-    float speed = 2f;
+    public float speed = 2f;
 
     void Awake()
     {

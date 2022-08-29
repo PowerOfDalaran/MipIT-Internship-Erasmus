@@ -8,6 +8,8 @@ TagManager:
   - Ship
   - Bullet
   - Asteroid
+  - Projectile
+  - Teleport
   layers:
   - Default
   - TransparentFX
