@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class AsteroidSpawner : MonoBehaviour
 {
     public AsteroidController asteroids;
-    float spawnRate = 2.0f;
+    float spawnRate = 4.0f;
     float spawnDistance = 14f;
     [SerializeField]
     GameObject smallAsteroidPrefab;
@@ -16,7 +18,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     void Awake()
     {
-        InvokeRepeating("spawn", 0f, spawnRate);
+        InvokeRepeating("spawnAsteroid", 0f, spawnRate);
     }
 
     //Spawn asteroid
@@ -47,7 +49,10 @@ public class AsteroidSpawner : MonoBehaviour
         }
 
         //Choosing position for spawning the asteroid
-        Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
+        //Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
+        //Vector2 spawnPoint = new Vector2(-41, 37);
+
+        Vector2 spawnPoint = GameObject.Find("AsteroidSpawner1").transform.position;
 
         //Randomizing the rotation of spawned asteroid
         float angle = Random.Range(-15f, 15f);

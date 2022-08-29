@@ -725,6 +725,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1152456896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152456898}
+  - component: {fileID: 1152456897}
+  m_Layer: 0
+  m_Name: AsteroidSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1152456897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152456896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fbf5a8ea99df3409ee1c146c9fe751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroids: {fileID: 0}
+  smallAsteroidPrefab: {fileID: 4288111556040446232, guid: 48815f70bb3dde74f93098a23db8a179, type: 3}
+  mediumAsteroidPrefab: {fileID: 4288111556040446232, guid: a6ff43c6f37e65c4bbb2a117d0d6aeab, type: 3}
+  bigAsteroidPrefab: {fileID: 4288111556040446232, guid: af7de440ab3b11a4a98f1daa0c5a541d, type: 3}
+  hugeAsteroidPrefab: {fileID: 4288111556040446232, guid: e6333f058c473fe4b852cb5f92c9fd11, type: 3}
+--- !u!4 &1152456898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152456896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.3, y: 36.2, z: -221.28696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1500741721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1393,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1912435561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912435563}
+  - component: {fileID: 1912435562}
+  m_Layer: 0
+  m_Name: AsteroidSpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1912435562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912435561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fbf5a8ea99df3409ee1c146c9fe751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroids: {fileID: 0}
+  smallAsteroidPrefab: {fileID: 4288111556040446232, guid: 48815f70bb3dde74f93098a23db8a179, type: 3}
+  mediumAsteroidPrefab: {fileID: 4288111556040446232, guid: a6ff43c6f37e65c4bbb2a117d0d6aeab, type: 3}
+  bigAsteroidPrefab: {fileID: 4288111556040446232, guid: af7de440ab3b11a4a98f1daa0c5a541d, type: 3}
+  hugeAsteroidPrefab: {fileID: 4288111556040446232, guid: e6333f058c473fe4b852cb5f92c9fd11, type: 3}
+--- !u!4 &1912435563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912435561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.8, y: 35, z: -221.28696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2089791465
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4288111556040446232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -181,3 +181,4 @@ MonoBehaviour:
   - {fileID: 21300032, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   - {fileID: 21300034, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   smallerAsteroidPrefab: {fileID: 0}
+  speed: 2
