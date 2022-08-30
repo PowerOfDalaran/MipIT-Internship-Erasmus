@@ -195,7 +195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300008, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -1194,7 +1194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300004, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -1961,7 +1961,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300022, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -2213,7 +2213,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300020, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -3234,7 +3234,7 @@ GameObject:
   - component: {fileID: 785069044}
   - component: {fileID: 785069045}
   m_Layer: 0
-  m_Name: Square
+  m_Name: RedAsteroid4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3295,7 +3295,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300004, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -4201,7 +4201,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300016, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -4595,7 +4595,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300006, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8784314, g: 0.12941177, b: 0.12941177, a: 1}
   m_FlipX: 0
@@ -6286,10 +6286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10dc005bfb370b1429eb7d64e4735959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minXPosition: -46.3
-  maxXPosition: 46.8
-  minYPosition: 10
-  maxYPosition: 28
 --- !u!1 &1815500336
 GameObject:
   m_ObjectHideFlags: 0
@@ -6499,7 +6495,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490545159
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300008, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 0.8773585, g: 0.12746526, b: 0.12746526, a: 0.58431375}
   m_FlipX: 0
