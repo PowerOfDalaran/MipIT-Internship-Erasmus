@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class LaserCannon : Weapon
 {
+    public override void Awake()
+    {
+        base.Awake();
+        fireCooldown = 0.1f;
+    }
+
     //Method launching the weapon - some problems with rotating the projectiles
     public override void Fire()
     {

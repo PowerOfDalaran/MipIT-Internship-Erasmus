@@ -7,6 +7,18 @@ public class CameraManager : MonoBehaviour
     GameObject player;
     Vector3 currentPlayerPosition;
 
+    //FOR IMPLEMENTATION
+    /*
+    [SerializeField]
+    float minXPosition = 10;
+    [SerializeField]
+    float maxXPosition = 10;
+    [SerializeField]
+    float minYPosition = 10;
+    [SerializeField]
+    float maxYPosition = 10;
+    */
+
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");

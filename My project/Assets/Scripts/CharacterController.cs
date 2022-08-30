@@ -90,61 +90,10 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    //OLD Movement
-    /*
-    private void ClampVelocity()
-    {
-        float x = Mathf.Clamp(rigidBody2D.velocity.x, -maxVelocity, maxVelocity);
-        float y = Mathf.Clamp(rigidBody2D.velocity.y, -maxVelocity, maxVelocity);
-
-        rigidBody2D.velocity = new Vector2(x,y);
-    }
-
-    private void ThrustForward(float amount)
-    {
-        Vector2 force = transform.up * amount;
-        rigidBody2D.AddForce(force);
-    }
-
-    //Rotation
-    private void Rotate(Transform t, float amount)
-    {
-        t.Rotate(0, 0, amount);
-    }
-    */
-
-    //Teleporting player to opposite part of the map - probably gonna delete later, needed for the tutorial
-    /*
-    void wrapAroundBoundary()
-    {
-        float x = transform.position.x;
-        float y = transform.position.y;
-
-        if(x>8f)
-        {
-            x = x - 16f;
-        }
-        else if(x<-8f)
-        {
-            x = x + 16f;
-        }
-
-        if(y>4.5f)
-        {
-            y = y - 9f;
-        }
-        else if(y<-4.5f)
-        {
-            y = y + 9f;
-        }
-        transform.position = new Vector2(x, y);
-    }
-    */
-
     //Checking if player got rekt - probably need to debug it later
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Asteroid")
+        if(collision.gameObject.tag == "Asteroid" || collision.gameObject.tag == "DeathZone")
         {
             GetRekt();
         }

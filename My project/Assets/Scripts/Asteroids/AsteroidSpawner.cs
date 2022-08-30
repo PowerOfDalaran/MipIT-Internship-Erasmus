@@ -1,12 +1,21 @@
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    public AsteroidController asteroids;
-    float spawnRate = 4.0f;
-    float spawnDistance = 14f;
+    [SerializeField]
+    float maxSpawnRate = 2.0f;
+    [SerializeField]
+    float minSpawnRate = 4.0f;
+    [SerializeField]
+    float minXSpawnPoint;
+    [SerializeField]
+    float maxXSpawnPoint;
+    [SerializeField]
+    float minYSpawnPoint;
+    [SerializeField]
+    float maxYSpawnPoint;
+
     [SerializeField]
     GameObject smallAsteroidPrefab;
     [SerializeField]
@@ -18,9 +27,16 @@ public class AsteroidSpawner : MonoBehaviour
 
     void Awake()
     {
-        InvokeRepeating("spawnAsteroid", 0f, spawnRate);
+        AsteroidOnlyGM.asteroidSpawners.Add(this);
     }
 
+    public void CallAsteroidWave()
+    {
+        float spawnDelay = Random.Range(minSpawnRate, maxSpawnRate);
+
+        StartCoroutine("SpawnAsteroidsWithDelay", spawnDelay);
+    }
+    
     //Spawn asteroid
     void spawnAsteroid()
     {
@@ -32,15 +48,19 @@ public class AsteroidSpawner : MonoBehaviour
         {
             case 4:
                 randomizedPrefab = hugeAsteroidPrefab;
+                AsteroidOnlyGM.spawnedAsteroids += 15;
                 break;
             case 3:
                 randomizedPrefab = bigAsteroidPrefab;
+                AsteroidOnlyGM.spawnedAsteroids += 7;
                 break;
             case 2:
                 randomizedPrefab = mediumAsteroidPrefab;
+                AsteroidOnlyGM.spawnedAsteroids += 3;
                 break;
             case 1:
                 randomizedPrefab = smallAsteroidPrefab;
+                AsteroidOnlyGM.spawnedAsteroids += 1;
                 break;
 
             default:
@@ -48,11 +68,10 @@ public class AsteroidSpawner : MonoBehaviour
                 break;
         }
 
-        //Choosing position for spawning the asteroid
-        //Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
-        //Vector2 spawnPoint = new Vector2(-41, 37);
+        float randomizedXPosition = Random.Range(minXSpawnPoint, maxXSpawnPoint);
+        float randomizedYPosition = Random.Range(minYSpawnPoint, maxYSpawnPoint);
 
-        Vector2 spawnPoint = GameObject.Find("AsteroidSpawner1").transform.position;
+        Vector2 spawnPoint = new Vector2(randomizedXPosition, randomizedYPosition);
 
         //Randomizing the rotation of spawned asteroid
         float angle = Random.Range(-15f, 15f);
@@ -65,5 +84,14 @@ public class AsteroidSpawner : MonoBehaviour
         //Calculating the direction of generated asteroid and throwing it in chosen direction
         Vector2 direction = rotation * -spawnPoint;
         spawnedAsteroid.ShoveAtRandom(mass, direction);
+    }
+
+    IEnumerator SpawnAsteroidsWithDelay(float delay)
+    {
+        while(AsteroidOnlyGM.asteroidLimit > AsteroidOnlyGM.spawnedAsteroids)
+        {
+            spawnAsteroid();
+            yield return new WaitForSeconds(delay);
+        }
     }
 }

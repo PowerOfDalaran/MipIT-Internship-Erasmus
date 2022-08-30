@@ -13,8 +13,8 @@ public class LaserCannonProjectile : Projectile
 
     protected override void DestroyProjectile()
     {
-        bool doYouHaveBitches = NoBitches("yes, please?");
-        Debug.Log("Bitches? " + doYouHaveBitches);
+        //bool doYouHaveBitches = NoBitches("yes, please?");
+        //Debug.Log("Bitches? " + doYouHaveBitches);
 
         base.DestroyProjectile();
     }

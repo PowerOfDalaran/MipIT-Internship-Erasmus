@@ -13,7 +13,7 @@ public class AsteroidController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     PolygonCollider2D polygonCollider2D;
     
-    public float speed = 2f;
+    public float speed = 4f;
 
     void Awake()
     {
@@ -60,6 +60,9 @@ public class AsteroidController : MonoBehaviour
         //Splitting or destroying asteroid when it hit with projectile
         if(other.tag == "Projectile")
         {
+            AsteroidOnlyGM.pointsCounter++;
+            AsteroidOnlyGM.spawnedAsteroids--;
+
             if(rigidBody2D.mass > 1)
             {
                 SplitAsteroid();
