@@ -38,7 +38,6 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Fire()
     {
         weaponPosition = gameObject.transform.Find("WeaponPosition").transform.position;
-        Debug.Log("Weapon Fired!");
         cooldownCounter = Time.time + fireCooldown;
     }
 }

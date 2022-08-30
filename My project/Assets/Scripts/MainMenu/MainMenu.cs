@@ -6,9 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    [SerializeField] Animator transitionAnimator;
+
+    public void PlayGame(int sceneId = 3)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        transitionAnimator.SetTrigger("CoverTheScreen");
+        StartCoroutine(SceneChanger.MoveToScene(sceneId, new Vector3(0, 0, -10), transitionAnimator));
+    }
+
+    public void Options(int sceneId = 2)
+    {
+        transitionAnimator.SetTrigger("CoverTheScreen");
+        StartCoroutine(SceneChanger.MoveToScene(sceneId, new Vector3(0, 0, -10), transitionAnimator));
     }
 
     public void QuitGame()
