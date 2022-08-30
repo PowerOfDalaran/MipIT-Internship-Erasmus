@@ -4,22 +4,23 @@ public abstract class Projectile : MonoBehaviour
 {
     protected Rigidbody2D rigidBody2D;
     protected Vector3 startPosition;
-    float currentDistance;
+    float currentLifespan;
     protected float projectileSpeed;
-    protected float maxDistance;
+    protected int maxLifespan;
 
     protected virtual void Awake()
     {
         rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
         startPosition = gameObject.transform.position;
+        currentLifespan = 0;
     }
 
     void Update()
     {
-        //Checking if projectile crossed his maxDistance limitation
-        currentDistance = Vector3.Distance (startPosition, gameObject.transform.position);
+        currentLifespan += Time.deltaTime;
 
-        if(currentDistance >= maxDistance)
+        //Checking if projectile crossed his maxDistance limitation
+        if(currentLifespan >= maxLifespan)
         {
             DestroyProjectile();
         }

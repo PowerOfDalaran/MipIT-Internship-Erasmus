@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LaserCannon : Weapon
 {
+    [SerializeField] AudioClip blastClip;
+
     public override void Awake()
     {
         base.Awake();
@@ -18,5 +20,7 @@ public class LaserCannon : Weapon
         projectile.transform.localRotation = gameObject.transform.rotation.normalized;
         projectile.GetComponent<Projectile>().LaunchProjectile(gameObject.transform.up);
         projectile.transform.Rotate(0, 0, 90);
+
+        //musicManager.PlaySingleSound(blastClip);
     }
 }

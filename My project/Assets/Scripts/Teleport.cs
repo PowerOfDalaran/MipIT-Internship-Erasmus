@@ -4,29 +4,27 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    [SerializeField]
-    bool isAvailable = true;
-    [SerializeField]
-    bool isUnstable = false;
-    [SerializeField]
-    bool forProjectiles = false;
-    [SerializeField]
-    bool forAsteroids = false;
+    [SerializeField] bool isAvailable = true;
+    [SerializeField] bool isUnstable = false;
+    [SerializeField] bool forProjectiles = false;
+    [SerializeField] bool forAsteroids = false;
+    [SerializeField] bool isVertical = false;
 
-    [SerializeField]
-    float maxYPosition;
-    [SerializeField]
-    float minYPosition;
-    [SerializeField]
-    float maxXPosition;
-    [SerializeField]
-    float minXPosition;
-    [SerializeField]
-    float playerVelocityMultiplicator = 0.2f;
-    [SerializeField]
-    float asteroidVelocityMultiplicator = 1.5f;
-    [SerializeField]
-    int positionZ = 0;
+    [SerializeField] float maxYPosition;
+    [SerializeField] float minYPosition;
+    [SerializeField] float maxXPosition;
+    [SerializeField] float minXPosition;
+    [SerializeField] Vector2 cameraPosition;
+    [SerializeField] float playerVelocityMultiplicator = 0.2f;
+    [SerializeField] float asteroidVelocityMultiplicator = 1.5f;
+    [SerializeField] int positionZ = 0;
+
+    CameraManager mainCamera;
+
+    void Awake()
+    {
+        mainCamera = Camera.main.gameObject.GetComponent<CameraManager>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,7 +32,7 @@ public class Teleport : MonoBehaviour
         {
             if(collision.gameObject.CompareTag("Player"))
             {
-                //Teleporting the player in random position from given range, lowering his velocity and possibly changing its rotation if unstable
+                //Teleporting the player in random position from given range, lowering his velocity, teleporting camera and possibly changing its rotation if unstable
                 GameObject player = collision.gameObject;
 
                 float positionX = Random.Range(minXPosition, maxXPosition);
@@ -43,6 +41,15 @@ public class Teleport : MonoBehaviour
                 player.transform.position = new Vector3(positionX, positionY, positionZ);
 
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x * playerVelocityMultiplicator, player.GetComponent<Rigidbody2D>().velocity.y * playerVelocityMultiplicator);
+
+                if(isVertical)
+                {
+                    mainCamera.TeleportCamera(cameraPosition.x, positionY);
+                }
+                else
+                {
+                    mainCamera.TeleportCamera(positionX, cameraPosition.y);
+                }
 
                 if(isUnstable)
                 {

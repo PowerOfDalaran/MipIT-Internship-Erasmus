@@ -4,20 +4,20 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField]
-    protected GameObject projectilePrefab;
-    [SerializeField]
-    protected float fireCooldown = 2;
+    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected float fireCooldown = 2;
 
     protected float cooldownCounter = 0;
     protected Vector3 weaponPosition;
     protected CharacterController characterController;
+    protected MusicManager musicManager;
 
     public bool canFire = true;
 
     public virtual void Awake()
     { 
         characterController = gameObject.GetComponent<CharacterController>();
+        //musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
     }
 
     public virtual void FixedUpdate()

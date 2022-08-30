@@ -8,6 +8,7 @@ using UnityEngine;
         [SerializeField] public AudioClip menuBackgroundClip;
         [SerializeField] public AudioClip gameBackgroundClip;
         bool stillFading = false;
+        [SerializeField] float singleEffectsVolume = 1;
         public static bool alreadyExisting = false;
 
         private void Awake()
@@ -47,9 +48,9 @@ using UnityEngine;
         }
 
         // Method playing single sound
-        public void PlaySingleSound(AudioClip singleSound, float volumeScaling)
+        public void PlaySingleSound(AudioClip singleSound)
         {
-            standardAudioSource.PlayOneShot(singleSound, volumeScaling);
+            standardAudioSource.PlayOneShot(singleSound, singleEffectsVolume);
         }
 
         // Method changing background clip with enumerator
