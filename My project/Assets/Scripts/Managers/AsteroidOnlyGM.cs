@@ -24,6 +24,8 @@ public class AsteroidOnlyGM : MonoBehaviour
         //Increasing the number of asteroids and sending new wave
         if(nextRoundReady)
         {
+            ScoreManager.instance.AddLevelPoint();
+
             roundCounter++;
             asteroidLimit += 10 * asteroidSpawners.Count;
 

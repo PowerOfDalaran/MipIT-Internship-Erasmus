@@ -63,7 +63,9 @@ public class AsteroidController : MonoBehaviour
             AsteroidOnlyGM.pointsCounter++;
             AsteroidOnlyGM.spawnedAsteroids--;
 
-            if(rigidBody2D.mass > 1)
+            ScoreManager.instance.AddPoint();
+
+            if (rigidBody2D.mass > 1)
             {
                 SplitAsteroid();
                 SplitAsteroid();
