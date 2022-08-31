@@ -56,25 +56,20 @@ public class CharacterController : MonoBehaviour
     //Adding velocity to the player or reducing it, depending if key is on or off
     private void FixedUpdate()
     {
-        if(forceOn)
+        if (forceOn)
         {
+            flame.SetActive(true);
             rigidBody2D.AddForce(-transform.up * forceAmount * speed);
+        }
+        else 
+        {
+            flame.SetActive(false);
         }
 
         if(torqueDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
+            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
         }
-
-        if (rigidBody2D.velocity.magnitude == 0)
-        {
-            flame.SetActive(false);
-        }
-        else
-        {
-            flame.SetActive(true);
-        }
-        
     }
 
     //Firing weapon if its ready
