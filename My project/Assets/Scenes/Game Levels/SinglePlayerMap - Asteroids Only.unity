@@ -4933,6 +4933,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 833120101
       objectReference: {fileID: 0}
+    - target: {fileID: 1162129891563936122, guid: 2ce1fb9d977e03b49a1ce0113faf945e, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ce1fb9d977e03b49a1ce0113faf945e, type: 3}
 --- !u!1 &1031114923
@@ -7428,7 +7432,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.453433
+  orthographic size: 6.45
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

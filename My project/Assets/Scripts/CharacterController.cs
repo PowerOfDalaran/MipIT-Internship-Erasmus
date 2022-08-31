@@ -18,11 +18,16 @@ public class CharacterController : MonoBehaviour
 
     Weapon currentWeapon;
     Rigidbody2D rigidBody2D;
+    GameObject flame;
+    GameObject impact02;
 
     void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         currentWeapon = gameObject.GetComponent<Weapon>();
+        flame = GameObject.Find("flame");
+        impact02 = GameObject.Find("Impact02");
+        impact02.SetActive(false);
     }
 
     void Update()
@@ -75,6 +80,16 @@ public class CharacterController : MonoBehaviour
         {
             rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
         }
+
+        if (rigidBody2D.velocity.magnitude == 0)
+        {
+            flame.SetActive(false);
+        }
+        else
+        {
+            flame.SetActive(true);
+        }
+        
     }
 
     //Firing weapon if its ready
@@ -95,6 +110,7 @@ public class CharacterController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Asteroid" || collision.gameObject.tag == "DeathZone")
         {
+            impact02.SetActive(true);
             GetRekt();
         }
     }
