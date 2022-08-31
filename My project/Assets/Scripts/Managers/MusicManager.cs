@@ -62,22 +62,24 @@ using UnityEngine;
         private void Update()
         {
             //Code for pausing music if game got paused
-            /*
-            if (InGameMenuManager.gameIsPaused)
+            if (PauseMenu.GameIsPaused)
             {
-                standardAudioSource.Pause();
+                audioSource.Pause();
             }
             else
             {
-                standardAudioSource.UnPause();
+                audioSource.UnPause();
             }
-            */
         }
 
         // Method playing single sound
         public void PlaySingleSound(AudioClip singleSound)
         {
-            audioSource.PlayOneShot(singleSound, soundEffectsVolume);
+            if(!PauseMenu.GameIsPaused)
+            {
+                audioSource.PlayOneShot(singleSound, soundEffectsVolume);                
+            }
+
         }
 
         // Method changing background clip with enumerator

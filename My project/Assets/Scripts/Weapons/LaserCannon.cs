@@ -21,6 +21,6 @@ public class LaserCannon : Weapon
         projectile.GetComponent<Projectile>().LaunchProjectile(gameObject.transform.up);
         projectile.transform.Rotate(0, 0, 90);
 
-        //musicManager.PlaySingleSound(blastClip);
+        musicManager.PlaySingleSound(blastClip);
     }
 }

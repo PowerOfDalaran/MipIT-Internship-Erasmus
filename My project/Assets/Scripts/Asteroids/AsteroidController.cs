@@ -33,11 +33,6 @@ public class AsteroidController : MonoBehaviour
         spriteRenderer.sprite.GetPhysicsShape(0, path);
         polygonCollider2D.SetPath(0, path.ToArray());
 
-        //  OLD CODE - randomizing mass?
-        //float width = Random.Range(0.75f, 1.33f);
-        //float height = 1 / width;
-        //transform.localScale = new Vector2(width, height) * theMass;
-
         //Assigning values to variables
         rigidBody2D.mass = theMass;
         rigidBody2D.velocity = direction.normalized * speed;
@@ -63,7 +58,7 @@ public class AsteroidController : MonoBehaviour
             AsteroidOnlyGM.pointsCounter++;
             AsteroidOnlyGM.spawnedAsteroids--;
 
-            //ScoreManager.instance.AddPoint();
+            ScoreVisualizationManager.instance.AddPoint();
 
             if (rigidBody2D.mass > 1)
             {

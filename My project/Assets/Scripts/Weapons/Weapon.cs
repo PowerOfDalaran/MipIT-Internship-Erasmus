@@ -17,7 +17,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Awake()
     { 
         characterController = gameObject.GetComponent<CharacterController>();
-        //musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
     }
 
     public virtual void FixedUpdate()

@@ -19,12 +19,7 @@ public class Teleport : MonoBehaviour
     [SerializeField] float asteroidVelocityMultiplicator = 1.5f;
     [SerializeField] int positionZ = 0;
 
-    CameraManager mainCamera;
-
-    void Awake()
-    {
-        mainCamera = Camera.main.gameObject.GetComponent<CameraManager>();
-    }
+    [SerializeField] CameraManager mainCamera;
 
     void OnTriggerEnter2D(Collider2D collision)
     {

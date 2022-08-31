@@ -68,7 +68,7 @@ public class CharacterController : MonoBehaviour
 
         if(torqueDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
+            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
         }
     }
 
@@ -78,10 +78,6 @@ public class CharacterController : MonoBehaviour
         if (currentWeapon.canFire)
         {
             currentWeapon.Fire();
-        }
-        else
-        {
-            Debug.Log("Weapon on cooldown!");
         }
     }
 
