@@ -42,6 +42,7 @@ public class AsteroidSpawner : MonoBehaviour
     {
         //Randomizing mass and choosing prefab
         GameObject randomizedPrefab = null;
+        int asteroidLayer = LayerMask.NameToLayer("NewAsteroid");
         float mass = Random.Range(1, 4);
 
         switch(mass)
@@ -79,8 +80,10 @@ public class AsteroidSpawner : MonoBehaviour
         
         //Spawning asteroid and setting its mass
         AsteroidController spawnedAsteroid = Instantiate(randomizedPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
+        
         spawnedAsteroid.gameObject.GetComponent<Rigidbody2D>().mass = mass;
-
+        spawnedAsteroid.gameObject.layer = asteroidLayer;
+        
         //Calculating the direction of generated asteroid and throwing it in chosen direction
         Vector2 direction = rotation * -spawnPoint;
         spawnedAsteroid.ShoveAtRandom(mass, direction);

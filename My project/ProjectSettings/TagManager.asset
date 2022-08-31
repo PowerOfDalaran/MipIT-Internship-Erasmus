@@ -24,10 +24,10 @@ TagManager:
   - Ship
   - Bullet
   - Asteroid
-  - Ignore
+  - IgnoreAsteroids
   - NewAsteroid
   - IgnoreNewAsteroids
-  - 
+  - Obstacle
   - 
   - 
   - 

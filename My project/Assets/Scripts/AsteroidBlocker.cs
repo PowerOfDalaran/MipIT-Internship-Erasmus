@@ -10,7 +10,6 @@ public class AsteroidBlocker : MonoBehaviour
         {
             int asteroidLayer = LayerMask.NameToLayer("Asteroid");
             collider.gameObject.layer = asteroidLayer;
-            Debug.Log(collider.gameObject.layer);
         }
     }
 }

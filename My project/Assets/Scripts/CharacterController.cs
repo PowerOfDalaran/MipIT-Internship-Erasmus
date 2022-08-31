@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    //[SerializeField]
-    //float movementSpeed = 2;
     [SerializeField]
     float speed = 3;
     [SerializeField]
@@ -32,16 +30,6 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        //OLD - Getting input
-        /*
-        float yAxis = Input.GetAxis("Vertical");
-        float xAxis = Input.GetAxis("Horizontal");
-
-        //Moving and rotating if input positive
-        ThrustForward(yAxis);
-        Rotate(transform, -xAxis * rotationSpeed);
-        */
-
         //Collecting inputs and adding values for movement
         forceOn = Input.GetKey(KeyCode.W);
 
@@ -63,9 +51,6 @@ public class CharacterController : MonoBehaviour
         {
             UseWeapon();
         }
-
-        //Calling the teleporting method
-        //wrapAroundBoundary();
     }
 
     //Adding velocity to the player or reducing it, depending if key is on or off
@@ -128,14 +113,12 @@ public class CharacterController : MonoBehaviour
     //Making player immortal
     void turnOffVisibility()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore");
+        gameObject.layer = LayerMask.NameToLayer("IgnoreAsteroids");
     }
 
     //Respawning player
     void Respawn()
     {
-        //transform.position = new Vector2(0f, 0f);
-        //transform.eulerAngles = new Vector3(0f, 0f, 0f);
         Invoke("turnOnVisibility", 3f);
     }
 

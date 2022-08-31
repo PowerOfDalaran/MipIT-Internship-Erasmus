@@ -63,7 +63,7 @@ public class AsteroidController : MonoBehaviour
             AsteroidOnlyGM.pointsCounter++;
             AsteroidOnlyGM.spawnedAsteroids--;
 
-            ScoreManager.instance.AddPoint();
+            //ScoreManager.instance.AddPoint();
 
             if (rigidBody2D.mass > 1)
             {
@@ -86,7 +86,7 @@ public class AsteroidController : MonoBehaviour
         position += Random.insideUnitCircle * 0.5f;
 
         AsteroidController small = Instantiate(smallerAsteroidPrefab, position, this.transform.rotation).GetComponent<AsteroidController>();
-        
+
         //Assignig direction and changing mass
         Vector2 direction = Random.insideUnitCircle;
         float mass = rigidBody2D.mass - 1;

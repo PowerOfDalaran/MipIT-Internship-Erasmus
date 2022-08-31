@@ -4,15 +4,42 @@ using UnityEngine;
 
     public class MusicManager : MonoBehaviour
     {
-        [SerializeField] AudioSource standardAudioSource;
+        AudioSource audioSource;
         [SerializeField] public AudioClip menuBackgroundClip;
         [SerializeField] public AudioClip gameBackgroundClip;
         bool stillFading = false;
-        [SerializeField] float singleEffectsVolume = 1;
+        [SerializeField] float soundEffectsVolume = 1;
         public static bool alreadyExisting = false;
+
+        public float GeneralVolume
+        {
+            get 
+            {
+                return audioSource.volume; 
+            }
+
+            set 
+            {
+                audioSource.volume = value; 
+            }
+        }
+        public float SoundEffectsVolume
+        {
+            get 
+            {
+                return soundEffectsVolume; 
+            }
+
+            set 
+            {
+                soundEffectsVolume = value; 
+            }
+        }
 
         private void Awake()
         {
+            audioSource = gameObject.GetComponent<AudioSource>();
+
             //Deleting this gameObject if there exist its copy
             if (alreadyExisting)
             {
@@ -24,9 +51,9 @@ using UnityEngine;
             }
 
             //Playing current audio clip and adding object to DontDestroyOnLoad list
-            if (standardAudioSource.clip != null)
+            if (audioSource.clip != null)
             {
-                standardAudioSource.Play();
+                audioSource.Play();
             }
 
             DontDestroyOnLoad(gameObject);
@@ -50,14 +77,14 @@ using UnityEngine;
         // Method playing single sound
         public void PlaySingleSound(AudioClip singleSound)
         {
-            standardAudioSource.PlayOneShot(singleSound, singleEffectsVolume);
+            audioSource.PlayOneShot(singleSound, soundEffectsVolume);
         }
 
         // Method changing background clip with enumerator
         public void ChangeBackgroundMusic(AudioClip backgroundClip)
         {
             StartCoroutine(FadeMusic(2.5f, 0, 0, backgroundClip));
-            StartCoroutine(FadeMusic(2.5f, 1, 2.5f, null));
+            StartCoroutine(FadeMusic(2.5f, audioSource.volume, 2.5f, null));
         }
 
         //Enumerator muting and turning up the music and optionally changing the background clip, if fourth parameter isn't null
@@ -71,21 +98,21 @@ using UnityEngine;
 
             stillFading = true;
             float currentTime = 0;
-            float start = standardAudioSource.volume;
+            float start = audioSource.volume;
 
             //Gradual change of music
             while (currentTime < duration)
             {
                 currentTime += Time.deltaTime;
-                standardAudioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+                audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
                 yield return null;
             }
 
             //Optional change of music clip
             if (clipToChange != null)
             {
-                standardAudioSource.clip = clipToChange;
-                standardAudioSource.Play();
+                audioSource.clip = clipToChange;
+                audioSource.Play();
             }
 
             stillFading = false;
