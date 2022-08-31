@@ -3027,7 +3027,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4359,7 +4359,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4580,11 +4580,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1756452418, guid: 2ce1fb9d977e03b49a1ce0113faf945e, type: 3}
       propertyPath: m_LinearDrag
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1756452418, guid: 2ce1fb9d977e03b49a1ce0113faf945e, type: 3}
       propertyPath: m_AngularDrag
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1756452429, guid: 2ce1fb9d977e03b49a1ce0113faf945e, type: 3}
       propertyPath: blastClip
@@ -4882,7 +4882,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -7341,7 +7341,7 @@ MonoBehaviour:
   minYPosition: -2.8
   maxXPosition: -56
   minXPosition: -56
-  cameraPosition: {x: -45, y: 0}
+  cameraPosition: {x: -51.1, y: 0}
   playerVelocityMultiplicator: 0.2
   asteroidVelocityMultiplicator: 1.5
   positionZ: 0
@@ -8386,7 +8386,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.45
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8429,10 +8429,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10dc005bfb370b1429eb7d64e4735959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minXPosition: -46.2
-  maxXPosition: 46.4
-  minYPosition: -34.5
-  maxYPosition: 31.8
+  minXPosition: -51.1
+  maxXPosition: 50.5
+  minYPosition: -37.4
+  maxYPosition: 29.1
 --- !u!1 &1860688910
 GameObject:
   m_ObjectHideFlags: 0
@@ -9388,7 +9388,7 @@ MonoBehaviour:
   minYPosition: -35.7
   maxXPosition: 55
   minXPosition: 55
-  cameraPosition: {x: 45, y: 0}
+  cameraPosition: {x: 50.5, y: 0}
   playerVelocityMultiplicator: 0.2
   asteroidVelocityMultiplicator: 1.5
   positionZ: 0
