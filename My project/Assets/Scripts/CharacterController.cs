@@ -10,7 +10,14 @@ public class CharacterController : MonoBehaviour
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
 
+<<<<<<< Updated upstream
     bool forceOn = false;
+=======
+    bool rotate_right = false;
+    bool rotate_left = false;
+    bool moving = false;
+    bool fire = false;
+>>>>>>> Stashed changes
 
     Weapon currentWeapon;
     Rigidbody2D rigidBody2D;
@@ -31,15 +38,22 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         //Checking if player want to move forward
         forceOn = Input.GetKey(KeyCode.W);
 
         //Choosing direction which player want to rotate
         if(Input.GetKey(KeyCode.A))
+=======
+        //Collecting inputs and adding values for movement
+        //forceOn = Input.GetKey(KeyCode.W);
+
+        if(rotate_left)
+>>>>>>> Stashed changes
         {
             torqueDirection = 1f;
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if(rotate_right)
         {
             torqueDirection = -1f;
         }
@@ -48,8 +62,13 @@ public class CharacterController : MonoBehaviour
             torqueDirection = 0f;
         }
 
+<<<<<<< Updated upstream
         //Firing weapon
         if (Input.GetKeyDown(KeyCode.Space))
+=======
+        //Activating weapon
+        if (fire)
+>>>>>>> Stashed changes
         {
             currentWeapon.Fire();
         }
@@ -57,8 +76,12 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+<<<<<<< Updated upstream
         //Adding force to player character and activating/deactivating the flame object (image with animation)
         if (forceOn)
+=======
+        if (moving)
+>>>>>>> Stashed changes
         {
             flame.SetActive(true);
             rigidBody2D.AddForce(-transform.up * forceAmount * speed);
@@ -108,5 +131,32 @@ public class CharacterController : MonoBehaviour
     void TurnOnVisibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Ship");
+    }
+
+    public void force()
+    {
+        moving = true;
+    }
+    
+    public void shoot()
+    {
+        fire = true;
+    }
+    public void rotateRight()
+    {
+        rotate_right = true;
+    }
+
+    public void rotateLeft()
+    {
+        rotate_left = true;
+    }
+
+    public void stop()
+    {
+        rotate_right = false;
+        rotate_left = false;
+        moving = false;
+        fire = false;
     }
 }
