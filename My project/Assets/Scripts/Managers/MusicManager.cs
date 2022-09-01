@@ -4,12 +4,15 @@ using UnityEngine;
 
     public class MusicManager : MonoBehaviour
     {
+        public static bool alreadyExisting = false;
+        bool stillFading = false;
+
+        [SerializeField] float soundEffectsVolume = 1;
+
         AudioSource audioSource;
+
         [SerializeField] public AudioClip menuBackgroundClip;
         [SerializeField] public AudioClip gameBackgroundClip;
-        bool stillFading = false;
-        [SerializeField] float soundEffectsVolume = 1;
-        public static bool alreadyExisting = false;
 
         public float GeneralVolume
         {
@@ -23,6 +26,7 @@ using UnityEngine;
                 audioSource.volume = value; 
             }
         }
+
         public float SoundEffectsVolume
         {
             get 
@@ -61,7 +65,7 @@ using UnityEngine;
 
         private void Update()
         {
-            //Code for pausing music if game got paused
+            //Pausing music if game got paused
             if (PauseMenu.GameIsPaused)
             {
                 audioSource.Pause();
@@ -72,24 +76,23 @@ using UnityEngine;
             }
         }
 
-        // Method playing single sound
+        //Method playing single sound if game isn't paused
         public void PlaySingleSound(AudioClip singleSound)
         {
             if(!PauseMenu.GameIsPaused)
             {
                 audioSource.PlayOneShot(singleSound, soundEffectsVolume);                
             }
-
         }
 
-        // Method changing background clip with enumerator
+        //Changing background clip with enumerator
         public void ChangeBackgroundMusic(AudioClip backgroundClip)
         {
             StartCoroutine(FadeMusic(2.5f, 0, 0, backgroundClip));
             StartCoroutine(FadeMusic(2.5f, audioSource.volume, 2.5f, null));
         }
 
-        //Enumerator muting and turning up the music and optionally changing the background clip, if fourth parameter isn't null
+        //Enumerator making the music gradually mute or turn up the volume and switching the audio clip
         public IEnumerator FadeMusic(float duration, float targetVolume, float waitForSeconds, AudioClip clipToChange)
         {
             // Checking if previous enumerator finished working
@@ -98,6 +101,7 @@ using UnityEngine;
                 yield return new WaitForSeconds(waitForSeconds);
             }
 
+            //Assigment of variables
             stillFading = true;
             float currentTime = 0;
             float start = audioSource.volume;

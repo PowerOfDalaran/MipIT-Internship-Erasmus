@@ -1,19 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
-    [SerializeField]
-    public Sprite[] possibleSprites;
-    [SerializeField]
-    GameObject smallerAsteroidPrefab;
+    public float speed = 4f;
+
+    [SerializeField] public Sprite[] possibleSprites;
+    [SerializeField] GameObject smallerAsteroidPrefab;
 
     Rigidbody2D rigidBody2D;
     SpriteRenderer spriteRenderer;
     PolygonCollider2D polygonCollider2D;
-    
-    public float speed = 4f;
 
     void Awake()
     {
@@ -41,25 +38,18 @@ public class AsteroidController : MonoBehaviour
         rigidBody2D.AddTorque(Random.Range(-4f, 4f));
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        //Destroying asteroid if it moves out of border of the game
-         if(other.tag == "Background")
-        {
-            Destroy(gameObject);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Splitting or destroying asteroid when it hit with projectile
         if(other.tag == "Projectile")
         {
+            //Increasing number of points and lowering number of existing asteroid
             AsteroidOnlyGM.pointsCounter++;
             AsteroidOnlyGM.spawnedAsteroids--;
 
+            //Adding point to the counter (CODE IS KIND OF REPEATING, NEED TO CHANGE IT LATER)
             ScoreVisualizationManager.instance.AddPoint();
 
+            //Splitting the asteroid twice or destroying it basing on its mass (RECODE THIS PART - SplitAsteroid() NEEDS TO SPAWN 2 ASTEROIDS)
             if (rigidBody2D.mass > 1)
             {
                 SplitAsteroid();
@@ -69,20 +59,19 @@ public class AsteroidController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-
         }
     }
 
-    //Splitting current asteroid into 2 smaller ones
+    //Splitting current asteroid into smaller one
     void SplitAsteroid()
     {
-        //Calculating position and creating new asteroid
+        //Calculating position and instantiating new asteroid
         Vector2 position = this.transform.position;
         position += Random.insideUnitCircle * 0.5f;
 
         AsteroidController small = Instantiate(smallerAsteroidPrefab, position, this.transform.rotation).GetComponent<AsteroidController>();
 
-        //Assignig direction and changing mass
+        //Assigning direction and changing mass
         Vector2 direction = Random.insideUnitCircle;
         float mass = rigidBody2D.mass - 1;
         

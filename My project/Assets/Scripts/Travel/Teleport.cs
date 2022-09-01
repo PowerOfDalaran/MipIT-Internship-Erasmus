@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Teleport : MonoBehaviour
@@ -14,29 +12,32 @@ public class Teleport : MonoBehaviour
     [SerializeField] float minYPosition;
     [SerializeField] float maxXPosition;
     [SerializeField] float minXPosition;
-    [SerializeField] Vector2 cameraPosition;
     [SerializeField] float playerVelocityMultiplicator = 0.2f;
     [SerializeField] float asteroidVelocityMultiplicator = 1.5f;
     [SerializeField] int positionZ = 0;
-
+    
+    [SerializeField] Vector2 cameraPosition;
     [SerializeField] CameraManager mainCamera;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(isAvailable)
         {
+            //Teleporting the player
             if(collision.gameObject.CompareTag("Player"))
             {
-                //Teleporting the player in random position from given range, lowering his velocity, teleporting camera and possibly changing its rotation if unstable
+                //Assigment of variables
                 GameObject player = collision.gameObject;
 
                 float positionX = Random.Range(minXPosition, maxXPosition);
                 float positionY = Random.Range(minYPosition, maxYPosition);
 
+                //Changing player position and lowering his velocity
                 player.transform.position = new Vector3(positionX, positionY, positionZ);
 
                 player.GetComponent<Rigidbody2D>().velocity = new Vector2(player.GetComponent<Rigidbody2D>().velocity.x * playerVelocityMultiplicator, player.GetComponent<Rigidbody2D>().velocity.y * playerVelocityMultiplicator);
 
+                //Changing camera position to proper position basing on the rotation of portal
                 if(isVertical)
                 {
                     mainCamera.TeleportCamera(cameraPosition.x, positionY);
@@ -46,6 +47,7 @@ public class Teleport : MonoBehaviour
                     mainCamera.TeleportCamera(positionX, cameraPosition.y);
                 }
 
+                //Changing rotation of player if portal is unstable
                 if(isUnstable)
                 {
                     int rotationTrigger = Random.Range(1, 10); 
@@ -56,12 +58,14 @@ public class Teleport : MonoBehaviour
                     }
                 }
             }
+            //Teleporting the projectile
             else if(collision.gameObject.CompareTag("Projectile") && forProjectiles)
             {
-                //Teleporting the projectile with some chance to destroy it if unstable
+                //Assigment of the variables
                 GameObject projectile = collision.gameObject;       
                 bool objectExist = true;
 
+                //Chance of destroying the projectile if portal's unstable 
                 if(isUnstable)
                 {
                     int destructionTrigger = Random.Range(1, 10); 
@@ -73,6 +77,7 @@ public class Teleport : MonoBehaviour
                     }
                 }
 
+                //Changing the position of projectile if object didn't get destroyed
                 if(objectExist)
                 {
                     float positionX = Random.Range(minXPosition, maxXPosition);
@@ -81,20 +86,22 @@ public class Teleport : MonoBehaviour
                     projectile.transform.position = new Vector3(positionX, positionY, positionZ);
                 }               
             }
+            //Teleporting the asteroid
             else if(collision.gameObject.CompareTag("Asteroid") && forAsteroids)
             {
-                //Teleporting asteroid, increasing its velocity and  (NOT DEVELOPED YET) changing its direction if unstable
+                //Assigment of the variables
                 GameObject asteroid = collision.gameObject;  
 
                 float positionX = Random.Range(minXPosition, maxXPosition);
                 float positionY = Random.Range(minYPosition, maxYPosition);
                     
+                //Changing position of the asteroid and increasing its velocity    
                 asteroid.transform.position = new Vector3(positionX, positionY, positionZ);
 
                 asteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(asteroid.GetComponent<Rigidbody2D>().velocity.x * asteroidVelocityMultiplicator, asteroid.GetComponent<Rigidbody2D>().velocity.y * asteroidVelocityMultiplicator);
 
-                /*
-                if(isUnstable)
+                //Changing direction, in which asteroid is moving (YET TO BE DEVELOPED)
+            /*  if(isUnstable)
                 {
                     int directionChangeTrigger = Random.Range(1, 10); 
 
@@ -102,8 +109,7 @@ public class Teleport : MonoBehaviour
                     {
                         
                     }
-                }
-                */
+                }       */
             }
         }
     }

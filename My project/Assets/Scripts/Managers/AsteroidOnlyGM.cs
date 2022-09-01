@@ -7,14 +7,13 @@ public class AsteroidOnlyGM : MonoBehaviour
     [SerializeField] public static int asteroidLimit = 5;
     public static int pointsCounter;
     public int roundCounter;
+
     bool nextRoundReady = false;
 
     public static List<AsteroidSpawner> asteroidSpawners = new List<AsteroidSpawner>();
 
     void Update()
     {
-        //Debug.Log(spawnedAsteroids);
-
         //Checking if player has destroyed all asteroids
         if(spawnedAsteroids == 0)
         {
@@ -24,9 +23,11 @@ public class AsteroidOnlyGM : MonoBehaviour
         //Increasing the number of asteroids and sending new wave
         if(nextRoundReady)
         {
+            //Increasing level counters
             ScoreVisualizationManager.instance.AddLevelPoint();
-
             roundCounter++;
+
+            //Increasing number of asteroids and spawning new ones
             asteroidLimit += 10 * asteroidSpawners.Count;
 
             foreach(AsteroidSpawner spawner in asteroidSpawners)

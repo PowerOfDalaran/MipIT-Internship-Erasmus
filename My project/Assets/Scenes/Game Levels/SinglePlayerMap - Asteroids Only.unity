@@ -2330,7 +2330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 1638462082}
-  mainMenuId: 0
 --- !u!114 &348121426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7599,7 +7598,7 @@ MonoBehaviour:
       - m_Target: {fileID: 348121425}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: MainMenu
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7743,10 +7742,10 @@ MonoBehaviour:
   minYPosition: -2.8
   maxXPosition: -56
   minXPosition: -56
-  cameraPosition: {x: -51.1, y: 0}
   playerVelocityMultiplicator: 0.2
   asteroidVelocityMultiplicator: 1.5
   positionZ: 0
+  cameraPosition: {x: -51.1, y: 0}
   mainCamera: {fileID: 1811113076}
 --- !u!1 &1580988557
 GameObject:
@@ -7986,7 +7985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318244760617360210, guid: eae84221e2e165542bc12642e6ac08f7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 488.5
+      value: 494.5
       objectReference: {fileID: 0}
     - target: {fileID: 4318244760617360210, guid: eae84221e2e165542bc12642e6ac08f7, type: 3}
       propertyPath: m_LocalScale.x
@@ -8034,7 +8033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318244760617360210, guid: eae84221e2e165542bc12642e6ac08f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 244.25
+      value: 247.25
       objectReference: {fileID: 0}
     - target: {fileID: 4318244760617360210, guid: eae84221e2e165542bc12642e6ac08f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9969,10 +9968,10 @@ MonoBehaviour:
   minYPosition: -35.7
   maxXPosition: 55
   minXPosition: 55
-  cameraPosition: {x: 50.5, y: 0}
   playerVelocityMultiplicator: 0.2
   asteroidVelocityMultiplicator: 1.5
   positionZ: 0
+  cameraPosition: {x: 50.5, y: 0}
   mainCamera: {fileID: 1811113076}
 --- !u!61 &2049964418
 BoxCollider2D:

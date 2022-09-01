@@ -214,7 +214,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -832,7 +832,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdfc41feead1d5448b0ff1393417c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardAudioSource: {fileID: 1976841870}
+  soundEffectsVolume: 1
   menuBackgroundClip: {fileID: 8300000, guid: 3f7a3aff7920dca4a870f34c3228734b, type: 3}
   gameBackgroundClip: {fileID: 8300000, guid: be4599c3a359c614b9c40e190d68ee70, type: 3}
 --- !u!4 &1976841872
