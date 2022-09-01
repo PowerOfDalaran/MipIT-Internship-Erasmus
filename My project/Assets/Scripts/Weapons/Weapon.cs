@@ -26,7 +26,6 @@ public abstract class Weapon : MonoBehaviour
         if (Time.time > cooldownCounter)
         {
             canFire = true;
-            cooldownCounter = 0;
         }
         else
         {

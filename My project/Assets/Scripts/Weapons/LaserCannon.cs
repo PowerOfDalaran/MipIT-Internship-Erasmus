@@ -9,7 +9,7 @@ public class LaserCannon : Weapon
         base.Awake();
         
         //Setting the features of this specific weapon
-        fireCooldown = 0.1f;
+        fireCooldown = 0.8f;
     }
 
     //Method shooting the weapon
@@ -17,14 +17,17 @@ public class LaserCannon : Weapon
     {
         base.Fire();
 
-        //Instantiating the projectile, setting its rotation, launching its and rotating it again(all images are turned into wrong dierection)
-        GameObject projectile = Instantiate(projectilePrefab, weaponPosition, Quaternion.identity);
+        if(canFire)
+        {
+            //Instantiating the projectile, setting its rotation, launching its and rotating it again(all images are turned into wrong dierection)
+            GameObject projectile = Instantiate(projectilePrefab, weaponPosition, Quaternion.identity);
 
-        projectile.transform.localRotation = gameObject.transform.rotation.normalized;
-        projectile.GetComponent<Projectile>().LaunchProjectile(gameObject.transform.up);
-        projectile.transform.Rotate(0, 0, 90);
+            projectile.transform.localRotation = gameObject.transform.rotation.normalized;
+            projectile.GetComponent<Projectile>().LaunchProjectile(gameObject.transform.up);
+            projectile.transform.Rotate(0, 0, 90);
 
-        //Playing sound effect of the weapon
-        musicManager.PlaySingleSound(blastClip);
+            //Playing sound effect of the weapon
+            musicManager.PlaySingleSound(blastClip);
+        }
     }
 }

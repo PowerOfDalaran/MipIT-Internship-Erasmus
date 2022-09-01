@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -10,14 +8,10 @@ public class CharacterController : MonoBehaviour
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
 
-<<<<<<< Updated upstream
-    bool forceOn = false;
-=======
     bool rotate_right = false;
     bool rotate_left = false;
-    bool moving = false;
-    bool fire = false;
->>>>>>> Stashed changes
+    bool moveForward = false;
+    bool fireWeapon = false;
 
     Weapon currentWeapon;
     Rigidbody2D rigidBody2D;
@@ -38,18 +32,42 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
-        //Checking if player want to move forward
-        forceOn = Input.GetKey(KeyCode.W);
+        //Temporary trigger for testing the game with keyboards
+        if(Input.GetKey(KeyCode.Space))
+        {
+            fireWeapon = true;
+        }
+        else
+        {
+            fireWeapon = false;
+        }
+        if(Input.GetKey(KeyCode.A))
+        {
+            rotate_left = true;
+        }
+        else
+        {
+            rotate_left = false;
+        }
+        if(Input.GetKey(KeyCode.D))
+        {
+            rotate_right = true;
+        }
+        else
+        {
+            rotate_right = false;
+        }
+        if(Input.GetKey(KeyCode.W))
+        {
+            moveForward = true;
+        }
+        else
+        {
+            moveForward = false;
+        }
 
         //Choosing direction which player want to rotate
-        if(Input.GetKey(KeyCode.A))
-=======
-        //Collecting inputs and adding values for movement
-        //forceOn = Input.GetKey(KeyCode.W);
-
         if(rotate_left)
->>>>>>> Stashed changes
         {
             torqueDirection = 1f;
         }
@@ -62,13 +80,8 @@ public class CharacterController : MonoBehaviour
             torqueDirection = 0f;
         }
 
-<<<<<<< Updated upstream
-        //Firing weapon
-        if (Input.GetKeyDown(KeyCode.Space))
-=======
         //Activating weapon
-        if (fire)
->>>>>>> Stashed changes
+        if (fireWeapon)
         {
             currentWeapon.Fire();
         }
@@ -76,12 +89,8 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-<<<<<<< Updated upstream
         //Adding force to player character and activating/deactivating the flame object (image with animation)
-        if (forceOn)
-=======
-        if (moving)
->>>>>>> Stashed changes
+        if (moveForward)
         {
             flame.SetActive(true);
             rigidBody2D.AddForce(-transform.up * forceAmount * speed);
@@ -91,7 +100,7 @@ public class CharacterController : MonoBehaviour
             flame.SetActive(false);
         }
 
-        //Rotating ship in direction based on pressed keyboard button
+        //Rotating ship in direction based on trigger
         if(torqueDirection!=0)
         {
             rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
@@ -111,7 +120,7 @@ public class CharacterController : MonoBehaviour
     //Method killing the player and starting his respawn at original position
     void KillPlayer()
     {
-        //Changin position of player and resetting his velocity
+        //Changing position of player and resetting his velocity
         transform.position = new Vector2(0f, 0f);
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
@@ -133,30 +142,30 @@ public class CharacterController : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Ship");
     }
 
-    public void force()
+    //Methods for buttons for turning on triggers
+    public void MoveForwardButtonPressed()
     {
-        moving = true;
+        moveForward = true;
     }
-    
-    public void shoot()
+    public void ShootButtonPressed()
     {
-        fire = true;
+        fireWeapon = true;
     }
-    public void rotateRight()
+    public void RotateRightButtonPressed()
     {
         rotate_right = true;
     }
-
-    public void rotateLeft()
+    public void RotateLeftButtonPressed()
     {
         rotate_left = true;
     }
 
-    public void stop()
+    //Method for turning off all triggers
+    public void NoButtonPressed()
     {
         rotate_right = false;
         rotate_left = false;
-        moving = false;
-        fire = false;
+        moveForward = false;
+        fireWeapon = false;
     }
 }

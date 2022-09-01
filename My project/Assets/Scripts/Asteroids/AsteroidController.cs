@@ -5,6 +5,8 @@ public class AsteroidController : MonoBehaviour
 {
     public float speed = 4f;
 
+    bool didntGotHit = true;
+
     [SerializeField] public Sprite[] possibleSprites;
     [SerializeField] GameObject smallerAsteroidPrefab;
 
@@ -40,8 +42,11 @@ public class AsteroidController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Projectile")
+        if(other.tag == "Projectile" && didntGotHit)
         {
+            //Turning on the flag
+            didntGotHit = false;
+
             //Increasing number of points and lowering number of existing asteroid
             AsteroidOnlyGM.pointsCounter++;
             AsteroidOnlyGM.spawnedAsteroids--;
