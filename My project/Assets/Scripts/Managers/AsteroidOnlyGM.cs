@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class AsteroidOnlyGM : MonoBehaviour
 {
-    [SerializeField] public static int spawnedAsteroids = 0;
-    [SerializeField] public static int asteroidLimit = 5;
+    [SerializeField] public static int existingAsteroids = 0;
+    [SerializeField] public static int asteroidLimit = 2;
+
     public static int pointsCounter;
-    public int roundCounter;
+    public int roundCounter = 1;
 
     bool nextRoundReady = false;
 
-    public static List<AsteroidSpawner> asteroidSpawners = new List<AsteroidSpawner>();
+    [SerializeField] public AsteroidSpawner asteroidSpawner;
 
     void Update()
     {
         //Checking if player has destroyed all asteroids
-        if(spawnedAsteroids == 0)
+        if(existingAsteroids == 0)
         {
             nextRoundReady = true;
         }
@@ -28,12 +29,9 @@ public class AsteroidOnlyGM : MonoBehaviour
             roundCounter++;
 
             //Increasing number of asteroids and spawning new ones
-            asteroidLimit += 10 * asteroidSpawners.Count;
+            asteroidLimit += 10;
 
-            foreach(AsteroidSpawner spawner in asteroidSpawners)
-            {
-                spawner.CallAsteroidWave();
-            }
+            asteroidSpawner.CallAsteroidWave();
 
             nextRoundReady = false;
         }

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
+  m_Sprite: {fileID: 21300024, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.1, y: 2.88}
+    oldSize: {x: 0.4, y: 0.36}
     newSize: {x: 3.1, y: 2.88}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -173,12 +173,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79c4c7026d20d4bb4ed11c0dc6d37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleSprites:
-  - {fileID: 21300024, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300026, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300028, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300030, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300032, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  - {fileID: 21300034, guid: 1bd6c74c058d5f143a391104c445e845, type: 3}
-  smallerAsteroidPrefab: {fileID: 0}
   speed: 2
+  smallerAsteroidPrefab: {fileID: 0}

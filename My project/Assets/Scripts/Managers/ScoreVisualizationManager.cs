@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ScoreVisualizationManager : MonoBehaviour
 {
     int score = 0;
-    int level = 0;
+    int level = 1;
 
     public static ScoreVisualizationManager instance;
 

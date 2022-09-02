@@ -7,7 +7,6 @@ public class AsteroidController : MonoBehaviour
 
     bool didntGotHit = true;
 
-    [SerializeField] public Sprite[] possibleSprites;
     [SerializeField] GameObject smallerAsteroidPrefab;
 
     Rigidbody2D rigidBody2D;
@@ -24,9 +23,6 @@ public class AsteroidController : MonoBehaviour
     //Shove asteroid at random direction
     public void ShoveAtRandom(float theMass, Vector2 direction)
     {
-        //Choosing sprite
-        spriteRenderer.sprite = this.possibleSprites[Random.Range(0, this.possibleSprites.Length)];
-
         //Choosing path to shove the asteroid
         List<Vector2> path = new List<Vector2>();
         spriteRenderer.sprite.GetPhysicsShape(0, path);
@@ -42,14 +38,14 @@ public class AsteroidController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        //Checking if asteroid didn't got hit by projectile twice
         if(other.tag == "Projectile" && didntGotHit)
         {
-            //Turning on the flag
+            //Turning off the flag
             didntGotHit = false;
 
-            //Increasing number of points and lowering number of existing asteroid
+            //Increasing number of points
             AsteroidOnlyGM.pointsCounter++;
-            AsteroidOnlyGM.spawnedAsteroids--;
 
             //Adding point to the counter (CODE IS KIND OF REPEATING, NEED TO CHANGE IT LATER)
             ScoreVisualizationManager.instance.AddPoint();
@@ -59,9 +55,15 @@ public class AsteroidController : MonoBehaviour
             {
                 SplitAsteroid();
                 SplitAsteroid();
+
+                //Adding ONE point to counter of existing asteroids (because one asteroid gets destroyed, two got created)
+                AsteroidOnlyGM.existingAsteroids++;
             }
             else
             {
+                //Removing one asteroid from counter of existing asteroids
+                AsteroidOnlyGM.existingAsteroids--;
+
                 Destroy(gameObject);
             }
         }
@@ -85,7 +87,7 @@ public class AsteroidController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //ALBER.EXE
+    //ALBERT.EXE
     private string[] Crewmates(string[] crewmates)
     {
         string[] sus = new string[1];
