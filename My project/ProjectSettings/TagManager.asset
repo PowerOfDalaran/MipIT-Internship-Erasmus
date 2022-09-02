@@ -8,6 +8,9 @@ TagManager:
   - Ship
   - Bullet
   - Asteroid
+  - Projectile
+  - Teleport
+  - DeathZone
   layers:
   - Default
   - TransparentFX
@@ -15,16 +18,16 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - DeathZone
+  - IgnorePlayer
   - Background
   - Ship
   - Bullet
   - Asteroid
-  - Ignore
-  - 
-  - 
-  - 
+  - IgnoreAsteroids
+  - NewAsteroid
+  - IgnoreNewAsteroids
+  - Obstacle
   - 
   - 
   - 

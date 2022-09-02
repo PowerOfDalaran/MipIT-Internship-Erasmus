@@ -1,50 +1,77 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    //[SerializeField]
-    //float movementSpeed = 2;
-    [SerializeField]
-    float maxVelocity = 3;
-    [SerializeField]
-    float rotationSpeed = 3;
-
-    bool forceOn = false;
+    [SerializeField] float speed = 3;
+    [SerializeField] float rotationSpeed = 3;
     float forceAmount = -10.0f;
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
 
+    bool rotate_right = false;
+    bool rotate_left = false;
+    bool moveForward = false;
+    bool fireWeapon = false;
+
     Weapon currentWeapon;
     Rigidbody2D rigidBody2D;
+    GameObject flame;
+    GameObject impact02;
 
     void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         currentWeapon = gameObject.GetComponent<Weapon>();
+
+        //Variables for flame object(image with animation) and death animation
+        flame = GameObject.Find("flame");
+
+        impact02 = GameObject.Find("Impact02");
+        impact02.SetActive(false);
     }
 
     void Update()
     {
-        //OLD - Getting input
-        /*
-        float yAxis = Input.GetAxis("Vertical");
-        float xAxis = Input.GetAxis("Horizontal");
-
-        //Moving and rotating if input positive
-        ThrustForward(yAxis);
-        Rotate(transform, -xAxis * rotationSpeed);
-        */
-
-        //Collecting inputs and adding values for movement
-        forceOn = Input.GetKey(KeyCode.W);
-
+        //Temporary trigger for testing the game with keyboards
+        if(Input.GetKey(KeyCode.Space))
+        {
+            fireWeapon = true;
+        }
+        else
+        {
+            fireWeapon = false;
+        }
         if(Input.GetKey(KeyCode.A))
+        {
+            rotate_left = true;
+        }
+        else
+        {
+            rotate_left = false;
+        }
+        if(Input.GetKey(KeyCode.D))
+        {
+            rotate_right = true;
+        }
+        else
+        {
+            rotate_right = false;
+        }
+        if(Input.GetKey(KeyCode.W))
+        {
+            moveForward = true;
+        }
+        else
+        {
+            moveForward = false;
+        }
+
+        //Choosing direction which player want to rotate
+        if(rotate_left)
         {
             torqueDirection = 1f;
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if(rotate_right)
         {
             torqueDirection = -1f;
         }
@@ -54,127 +81,91 @@ public class CharacterController : MonoBehaviour
         }
 
         //Activating weapon
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UseWeapon();
-        }
-
-        //Calling the teleporting method
-        wrapAroundBoundary();
-    }
-
-    //Adding velocity to the player or reducing it, depending if key is on or off
-    private void FixedUpdate()
-    {
-        if(forceOn)
-        {
-            rigidBody2D.AddForce(-transform.up * forceAmount);
-        }
-
-        if(torqueDirection!=0)
-        {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
-        }
-    }
-
-    //Firing weapon if its ready
-    void UseWeapon()
-    {
-        if (currentWeapon.canFire)
+        if (fireWeapon)
         {
             currentWeapon.Fire();
         }
-        else
-        {
-            Debug.Log("Weapon on cooldown!");
-        }
     }
 
-    //OLD Movement
-    /*
-    private void ClampVelocity()
+    private void FixedUpdate()
     {
-        float x = Mathf.Clamp(rigidBody2D.velocity.x, -maxVelocity, maxVelocity);
-        float y = Mathf.Clamp(rigidBody2D.velocity.y, -maxVelocity, maxVelocity);
-
-        rigidBody2D.velocity = new Vector2(x,y);
-    }
-
-    private void ThrustForward(float amount)
-    {
-        Vector2 force = transform.up * amount;
-        rigidBody2D.AddForce(force);
-    }
-
-    //Rotation
-    private void Rotate(Transform t, float amount)
-    {
-        t.Rotate(0, 0, amount);
-    }
-    */
-
-    //Teleporting player to opposite part of the map - probably gonna delete later, needed for the tutorial
-    void wrapAroundBoundary()
-    {
-        float x = transform.position.x;
-        float y = transform.position.y;
-
-        if(x>8f)
+        //Adding force to player character and activating/deactivating the flame object (image with animation)
+        if (moveForward)
         {
-            x = x - 16f;
+            flame.SetActive(true);
+            rigidBody2D.AddForce(-transform.up * forceAmount * speed);
         }
-        else if(x<-8f)
+        else 
         {
-            x = x + 16f;
+            flame.SetActive(false);
         }
 
-        if(y>4.5f)
+        //Rotating ship in direction based on trigger
+        if(torqueDirection!=0)
         {
-            y = y - 9f;
+            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
         }
-        else if(y<-4.5f)
-        {
-            y = y + 9f;
-        }
-        transform.position = new Vector2(x, y);
     }
 
-    //Checking if player got rekt - probably need to debug it later
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Asteroid")
+        //Killing the player if he got hit by asteroid or flied into deathzone and activating explosion animation
+        if(collision.gameObject.tag == "Asteroid" || collision.gameObject.tag == "DeathZone")
         {
-            GetRekt();
+            impact02.SetActive(true);
+            KillPlayer();
         }
     }
 
-    //Initating death of the player and his respawn - probably need to debug it later
-    void GetRekt()
+    //Method killing the player and starting his respawn at original position
+    void KillPlayer()
     {
-        transform.position = new Vector2(4000f, 4000f);
+        //Changing position of player and resetting his velocity
+        transform.position = new Vector2(0f, 0f);
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
-        turnOnVisibility();
-        Invoke("Respawn", 3f);
+
+        //Activating invcibility and invoking deactivation of his incibility
+        TurnOffVisibility();
+        Invoke("TurnOnVisibility", 6f);
     }
 
-    //Making player immortal
-    void turnOffVisibility()
+    //Changing layer of the player, so now he will be ignored by asteroids
+    void TurnOffVisibility()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore");
+        gameObject.layer = LayerMask.NameToLayer("IgnoreAsteroids");
     }
 
-    //Respawning player
-    void Respawn()
-    {
-        transform.position = new Vector2(0f, 0f);
-        transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        Invoke("turnOnCollisions", 3f);
-    }
-
-    //Making player mortal
-    void turnOnVisibility()
+    //Changing layer of the player back to the original one, in which he can be killed again
+    void TurnOnVisibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Ship");
+    }
+
+    //Methods for buttons for turning on triggers
+    public void MoveForwardButtonPressed()
+    {
+        moveForward = true;
+    }
+    public void ShootButtonPressed()
+    {
+        fireWeapon = true;
+    }
+    public void RotateRightButtonPressed()
+    {
+        rotate_right = true;
+    }
+    public void RotateLeftButtonPressed()
+    {
+        rotate_left = true;
+    }
+
+    //Method for turning off all triggers
+    public void NoButtonPressed()
+    {
+        rotate_right = false;
+        rotate_left = false;
+        moveForward = false;
+        fireWeapon = false;
     }
 }

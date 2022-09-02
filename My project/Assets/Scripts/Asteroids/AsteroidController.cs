@@ -1,14 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
-    public Sprite[] sprites;
+    public float speed = 4f;
+
+    bool didntGotHit = true;
+
+    [SerializeField] GameObject smallerAsteroidPrefab;
+
     Rigidbody2D rigidBody2D;
     SpriteRenderer spriteRenderer;
     PolygonCollider2D polygonCollider2D;
-    float speed = 2f;
 
     void Awake()
     {
@@ -20,58 +23,75 @@ public class AsteroidController : MonoBehaviour
     //Shove asteroid at random direction
     public void ShoveAtRandom(float theMass, Vector2 direction)
     {
-        spriteRenderer.sprite = this.sprites[Random.Range(0, this.sprites.Length)];
-
+        //Choosing path to shove the asteroid
         List<Vector2> path = new List<Vector2>();
         spriteRenderer.sprite.GetPhysicsShape(0, path);
         polygonCollider2D.SetPath(0, path.ToArray());
 
+        //Assigning values to variables
         rigidBody2D.mass = theMass;
-        float width = Random.Range(0.75f, 1.33f);
-        float height = 1 / width;
-        transform.localScale = new Vector2(width, height) * theMass;
-
-
         rigidBody2D.velocity = direction.normalized * speed;
-        rigidBody2D.AddTorque(Random.Range(-4f, 4f));
-    }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        //Destroying asteroid if it moves out of border of the game
-         if(other.tag == "Background")
-        {
-            Destroy(gameObject);
-        }
+        //Moving the asteroid
+        rigidBody2D.AddTorque(Random.Range(-4f, 4f));
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Splitting or destroying asteroid when it hit with projectile
-        if(other.tag == "Projectile")
+        //Checking if asteroid didn't got hit by projectile twice
+        if(other.tag == "Projectile" && didntGotHit)
         {
-            if(rigidBody2D.mass>0.7f)
+            //Turning off the flag
+            didntGotHit = false;
+
+            //Increasing number of points
+            AsteroidOnlyGM.pointsCounter++;
+
+            //Adding point to the counter (CODE IS KIND OF REPEATING, NEED TO CHANGE IT LATER)
+            ScoreVisualizationManager.instance.AddPoint();
+
+            //Splitting the asteroid twice or destroying it basing on its mass (RECODE THIS PART - SplitAsteroid() NEEDS TO SPAWN 2 ASTEROIDS)
+            if (rigidBody2D.mass > 1)
             {
                 SplitAsteroid();
                 SplitAsteroid();
+
+                //Adding ONE point to counter of existing asteroids (because one asteroid gets destroyed, two got created)
+                AsteroidOnlyGM.existingAsteroids++;
             }
             else
             {
+                //Removing one asteroid from counter of existing asteroids
+                AsteroidOnlyGM.existingAsteroids--;
+
                 Destroy(gameObject);
             }
-
         }
     }
 
-    //Splits asteroid into smaller ones and start their movement
+    //Splitting current asteroid into smaller one
     void SplitAsteroid()
     {
+        //Calculating position and instantiating new asteroid
         Vector2 position = this.transform.position;
         position += Random.insideUnitCircle * 0.5f;
 
-        AsteroidController small = Instantiate(this, position, this.transform.rotation);
+        AsteroidController small = Instantiate(smallerAsteroidPrefab, position, this.transform.rotation).GetComponent<AsteroidController>();
+
+        //Assigning direction and changing mass
         Vector2 direction = Random.insideUnitCircle;
-        float mass = rigidBody2D.mass / 2;
+        float mass = rigidBody2D.mass - 1;
+        
+        //Shoving created asteroid and destroying current one
         small.ShoveAtRandom(mass, direction);
+        Destroy(gameObject);
+    }
+
+    //ALBERT.EXE
+    private string[] Crewmates(string[] crewmates)
+    {
+        string[] sus = new string[1];
+        sus = crewmates;
+        return sus;
     }
 }

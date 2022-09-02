@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Menus/MainMenu.unity
+    guid: 2b1ea3489599272408708ccfd19b8f5b
+  - enabled: 0
+    path: Assets/Scenes/SinglePlayerMap 0.1.unity
+    guid: b78096c1820fe9e4db93b165a638603b
+  - enabled: 1
+    path: Assets/Scenes/Menus/GameModeMenu.unity
+    guid: d108909b5fa344b40941e1c5048bb5ef
+  - enabled: 1
+    path: Assets/Scenes/Menus/SettingsMenu.unity
+    guid: 1f48e67be9bf89e44bb4409b224214e8
+  - enabled: 1
+    path: Assets/Scenes/Game Levels/SinglePlayerMap - Asteroids Only.unity
+    guid: a0f52deb941b5df4fbbccc21f090d637
   m_configObjects: {}

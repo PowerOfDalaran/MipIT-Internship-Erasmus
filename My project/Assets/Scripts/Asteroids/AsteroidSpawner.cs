@@ -1,33 +1,92 @@
+using System.Collections;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    public AsteroidController asteroids;
-    float spawnRate = 2.0f;
-    float spawnDistance = 14f;
+    [SerializeField] float maxSpawnRate = 1;
+    [SerializeField] float minSpawnRate = 3;
 
-    void Start()
+    [SerializeField] AsteroidSpawnPoint[] possiblePositions;
+
+    [SerializeField] GameObject smallAsteroidPrefab;
+    [SerializeField] GameObject mediumAsteroidPrefab;
+    [SerializeField] GameObject bigAsteroidPrefab;
+    [SerializeField] GameObject hugeAsteroidPrefab;
+
+    void Awake()
     {
-        InvokeRepeating("spawn", 0f, spawnRate);
+        CallAsteroidWave();
     }
 
-    //Method spawning asteroids, randomizing their mass and rotation, calculating their direction and setting them into motion
-    void spawnAsteroid()
+    //Randomizing spawn rate and calling new wave
+    public void CallAsteroidWave()
     {
-        //Choosing position for spawning the asteroid
-        Vector2 spawnPoint = Random.insideUnitCircle.normalized * spawnDistance;
+        float spawnDelay = Random.Range(minSpawnRate, maxSpawnRate);
 
-        //Randomizing the position of spawned asteroid
+        StartCoroutine("SpawnAsteroidsWithDelay", spawnDelay);
+    }
+    
+    //Spawning asteroid
+    void SpawnAsteroid()
+    {
+        //Randomizing mass and getting id of the layer
+        GameObject randomizedPrefab = null;
+        int asteroidLayer = LayerMask.NameToLayer("NewAsteroid");
+        float mass = Random.Range(1, 4);
+
+        //Adding one point to counter of existing asteroids
+        AsteroidOnlyGM.existingAsteroids++;
+
+        //Choosing prefab basing on randomized mass
+        switch(mass)
+        {
+            case 4:
+                randomizedPrefab = hugeAsteroidPrefab;
+                break;
+            case 3:
+                randomizedPrefab = bigAsteroidPrefab;
+                break;
+            case 2:
+                randomizedPrefab = mediumAsteroidPrefab;
+                break;
+            case 1:
+                randomizedPrefab = smallAsteroidPrefab;
+                break;
+            default:
+                Debug.Log("An error has occured.");
+                break;
+        }
+
+        //Randomizing spawn range from the array and then again randomizing actual spawn point
+        int randomizedPositions = Random.Range(0, possiblePositions.Length - 1);
+
+        float randomizedXPosition = Random.Range(possiblePositions[randomizedPositions].minXSpawnPoint, possiblePositions[randomizedPositions].maxXSpawnPoint);
+        float randomizedYPosition = Random.Range(possiblePositions[randomizedPositions].minYSpawnPoint, possiblePositions[randomizedPositions].maxYSpawnPoint);
+
+        Vector2 spawnPoint = new Vector2(randomizedXPosition, randomizedYPosition);
+
+        //Randomizing the rotation of spawned asteroid
         float angle = Random.Range(-15f, 15f);
-
         Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-        AsteroidController theAsteroids = Instantiate(asteroids, spawnPoint, rotation);
-
-        //Calculating the direction of generated asteroid
+        
+        //Spawning asteroid, setting its mass and layer
+        AsteroidController spawnedAsteroid = Instantiate(randomizedPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
+        
+        spawnedAsteroid.gameObject.GetComponent<Rigidbody2D>().mass = mass;
+        spawnedAsteroid.gameObject.layer = asteroidLayer;
+        
+        //Calculating the direction of generated asteroid and throwing it in chosen direction
         Vector2 direction = rotation * -spawnPoint;
+        spawnedAsteroid.ShoveAtRandom(mass, direction);
+    }
 
-        //Randomizing the mass of asteroid and throwing it in chosen direction
-        float mass = Random.Range(0.8f, 1.4f);
-        theAsteroids.ShoveAtRandom(mass, direction);
+    //Enumerator initializating asteroid spawning (with delay), while number of existing asteroids is smaller than chosen limit
+    IEnumerator SpawnAsteroidsWithDelay(float delay)
+    {
+        while(AsteroidOnlyGM.asteroidLimit > AsteroidOnlyGM.existingAsteroids)
+        {
+            SpawnAsteroid();
+            yield return new WaitForSeconds(delay);
+        }
     }
 }

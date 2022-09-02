@@ -2,24 +2,29 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
+    protected float projectileSpeed;
+    float currentLifespan;
+
+    protected int maxLifespan;
+
     protected Rigidbody2D rigidBody2D;
     protected Vector3 startPosition;
-    float currentDistance;
-    protected float projectileSpeed;
-    protected float maxDistance;
 
     protected virtual void Awake()
     {
+        //Assigment of variables
         rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
         startPosition = gameObject.transform.position;
+
+        currentLifespan = 0;
     }
 
     void Update()
     {
-        //Checking if projectile crossed his maxDistance limitation
-        currentDistance = Vector3.Distance (startPosition, gameObject.transform.position);
+        //Increasing current lifespan of projectile and Checking if projectile crossed his maximum lifespan, and if he did - destroying the projectile
+        currentLifespan += Time.deltaTime;
 
-        if(currentDistance >= maxDistance)
+        if(currentLifespan >= maxLifespan)
         {
             DestroyProjectile();
         }
@@ -31,10 +36,10 @@ public abstract class Projectile : MonoBehaviour
         rigidBody2D.velocity = direciton.normalized * projectileSpeed;
     }
 
-    //Destroying projectile on contact
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.name != "player" && other.gameObject.transform.tag != "Projectile")
+        //Destroying projectile on contact if it touched anything other than player, teleport or other projectile
+        if(other.gameObject.tag != "Player" && other.gameObject.tag != "Projectile" && other.gameObject.tag != "Teleport")
         {
             DestroyProjectile();
         }
@@ -46,6 +51,7 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //ALBERT.EXE
     protected bool NoBitches(string bitches)
     {
         bitches = "No bitches? O.o";
