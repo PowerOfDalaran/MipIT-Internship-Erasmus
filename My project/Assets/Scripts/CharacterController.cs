@@ -12,8 +12,10 @@ public class CharacterController : MonoBehaviour
     bool rotate_left = false;
     bool moveForward = false;
     bool fireWeapon = false;
+    bool respawning = false;
 
     Weapon currentWeapon;
+    Animator characterAnimator;
     Rigidbody2D rigidBody2D;
     GameObject flame;
     GameObject impact02;
@@ -25,6 +27,7 @@ public class CharacterController : MonoBehaviour
 
         //Variables for flame object(image with animation) and death animation
         flame = GameObject.Find("flame");
+        characterAnimator = gameObject.GetComponent<Animator>();
 
         impact02 = GameObject.Find("Impact02");
         impact02.SetActive(false);
@@ -80,8 +83,8 @@ public class CharacterController : MonoBehaviour
             torqueDirection = 0f;
         }
 
-        //Activating weapon
-        if (fireWeapon)
+        //Activating weapon if player isn't respawning
+        if (fireWeapon && respawning != true)
         {
             currentWeapon.Fire();
         }
@@ -125,8 +128,10 @@ public class CharacterController : MonoBehaviour
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
 
-        //Activating invcibility and invoking deactivation of his incibility
+        //Activating invcibility, turning on respawning animation, blocking shooting and invoking deactivation of his incibility
         TurnOffVisibility();
+        characterAnimator.SetBool("respawned", true);
+        respawning = true;
         Invoke("TurnOnVisibility", 6f);
     }
 
@@ -140,6 +145,10 @@ public class CharacterController : MonoBehaviour
     void TurnOnVisibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Ship");
+        
+        //Deactivating respawning animation and allowing player to shoot
+        characterAnimator.SetBool("respawned", false);
+        respawning = false;
     }
 
     //Methods for buttons for turning on triggers
