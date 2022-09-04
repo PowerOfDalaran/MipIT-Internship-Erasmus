@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:My project/Assets/Scripts/CharacterController.cs.meta
-guid: cc79c4c7026d20d4bb4ed11c0dc6d37c
-========
-guid: 2613326604696964a864d83baf06451a
->>>>>>>> 1d0534c31d3a9f3b5563eceabeb9f1c1ca568419:My project/Assets/Scripts/Asteroids.cs.meta
+guid: 215d0534960ad2646982e9d0839af926
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
