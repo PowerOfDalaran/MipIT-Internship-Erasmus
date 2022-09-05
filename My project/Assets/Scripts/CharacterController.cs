@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] float speed = 3;
-    [SerializeField] float rotationSpeed = 3;
+    [SerializeField] float rotationSpeed = 0.1f;
     float forceAmount = -10.0f;
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
@@ -106,7 +106,8 @@ public class CharacterController : MonoBehaviour
         //Rotating ship in direction based on trigger
         if(torqueDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
+            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
+            //rigidBody2D.SetRotation(new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z + (torqueDirection * rotationSpeed), gameObject.transform.rotation.w));
         }
     }
 

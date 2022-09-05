@@ -36,7 +36,6 @@ public static class SceneChanger
 
                     while (!nextScene.isDone)
                     {
-                        Debug.Log("Almost there...");
                         yield return null;
                     }
 

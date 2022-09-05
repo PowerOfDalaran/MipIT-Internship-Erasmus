@@ -48,7 +48,7 @@ public class AsteroidSpawner : MonoBehaviour
     {
         //Accessing id of the layer and randomizing mass
         int asteroidLayer = LayerMask.NameToLayer("NewAsteroid");
-        int mass = Random.Range(1, 4);
+        int mass = Random.Range(1, 5);
 
         //Adding point to the counter of existing asteroids, randomizing angle and creating rotation for new asteroid
         AsteroidOnlyGM.existingAsteroids++;
@@ -59,7 +59,7 @@ public class AsteroidSpawner : MonoBehaviour
         //Instantiating new asteroid and calling its initializating method
         AsteroidController spawnedAsteroid = Instantiate(asteroidPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
         
-        spawnedAsteroid.initializateAsteroid(mass);
+        spawnedAsteroid.InitializateAsteroid(mass);
 
         //Setting asteroid layer and shoving it in calculated direction
         spawnedAsteroid.gameObject.layer = asteroidLayer;

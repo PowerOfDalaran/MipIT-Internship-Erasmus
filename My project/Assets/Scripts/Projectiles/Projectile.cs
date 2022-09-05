@@ -4,6 +4,8 @@ public abstract class Projectile : MonoBehaviour
 {
     protected float projectileSpeed;
     float currentLifespan;
+    public float damage;
+    public int durability = 1;
 
     protected int maxLifespan;
 
