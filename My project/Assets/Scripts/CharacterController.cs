@@ -4,6 +4,8 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] float speed = 3;
     [SerializeField] float rotationSpeed = 0.1f;
+    float maxHealth = 10;
+    [SerializeField] float currentHealth;
     float forceAmount = -10.0f;
     float torqueDirection = 0.0f;
     float torqueAmount = 0.5f;
@@ -24,6 +26,7 @@ public class CharacterController : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         currentWeapon = gameObject.GetComponent<Weapon>();
+        currentHealth = maxHealth;
 
         //Variables for flame object(image with animation) and death animation
         flame = GameObject.Find("flame");
@@ -83,6 +86,13 @@ public class CharacterController : MonoBehaviour
             torqueDirection = 0f;
         }
 
+        //Checking if player should be killed
+        if(currentHealth <= 0)
+        {
+            impact02.SetActive(true);
+            KillPlayer();
+        }
+
         //Activating weapon if player isn't respawning
         if (fireWeapon && respawning != true)
         {
@@ -113,21 +123,33 @@ public class CharacterController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Killing the player if he got hit by asteroid or flied into deathzone and activating explosion animation
-        if(collision.gameObject.tag == "Asteroid" || collision.gameObject.tag == "DeathZone")
+        //Dealing damage to player if he flied into asteroid
+        if(collision.gameObject.tag == "Asteroid")
+        {
+            DealDamage(collision.gameObject.GetComponent<Rigidbody2D>().mass);
+        }
+        //Killing player if he flied into deathzone and activating explosion animation
+        else if(collision.gameObject.tag == "DeathZone")
         {
             impact02.SetActive(true);
             KillPlayer();
         }
     }
 
+    //Dealing damage to player character
+    public void DealDamage(float damage)
+    {
+        currentHealth -= damage;
+    }
+
     //Method killing the player and starting his respawn at original position
     void KillPlayer()
     {
-        //Changing position of player and resetting his velocity
+        //Changing position of player, resetting his velocity and health
         transform.position = new Vector2(0f, 0f);
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
+        currentHealth = maxHealth;
 
         //Activating invcibility, turning on respawning animation, blocking shooting and invoking deactivation of his incibility
         TurnOffVisibility();
