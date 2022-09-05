@@ -64,7 +64,7 @@ public class AsteroidController : MonoBehaviour
     }
 
     //Dealing damage to asteroid
-    void DealDamage(float damage)
+    public void DealDamage(float damage)
     {
         currentHealth -= damage;
     }

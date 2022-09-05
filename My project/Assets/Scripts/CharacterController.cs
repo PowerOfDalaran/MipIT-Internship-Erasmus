@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    int damageTreshold = 1;
     [SerializeField] float speed = 3;
     [SerializeField] float rotationSpeed = 0.1f;
-    float maxHealth = 10;
+    float maxHealth = 20;
     [SerializeField] float currentHealth;
     float forceAmount = -10.0f;
     float torqueDirection = 0.0f;
@@ -126,7 +127,18 @@ public class CharacterController : MonoBehaviour
         //Dealing damage to player if he flied into asteroid
         if(collision.gameObject.tag == "Asteroid")
         {
-            DealDamage(collision.gameObject.GetComponent<Rigidbody2D>().mass);
+            float damage = collision.relativeVelocity.magnitude * collision.gameObject.GetComponent<Rigidbody2D>().mass;
+            DealDamage(damage);
+
+            //Dealing damage to asteroid
+            collision.gameObject.GetComponent<AsteroidController>().DealDamage(1);
+        }
+        //Dealing damage to player if he flied into terrain
+        else if(collision.gameObject.tag == "Obstacle")
+        {
+            float damage = collision.relativeVelocity.magnitude;
+            DealDamage(damage);
+
         }
         //Killing player if he flied into deathzone and activating explosion animation
         else if(collision.gameObject.tag == "DeathZone")
@@ -139,7 +151,11 @@ public class CharacterController : MonoBehaviour
     //Dealing damage to player character
     public void DealDamage(float damage)
     {
-        currentHealth -= damage;
+        Debug.Log(damage);
+        if(damage >= damageTreshold)
+        {
+            currentHealth -= damage;
+        }
     }
 
     //Method killing the player and starting his respawn at original position
