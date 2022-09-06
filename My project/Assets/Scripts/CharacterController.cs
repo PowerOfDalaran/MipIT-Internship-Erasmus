@@ -190,30 +190,21 @@ public class CharacterController : MonoBehaviour
         respawning = false;
     }
 
-    //Methods for buttons for turning on triggers
-    public void MoveForwardButtonPressed()
+    //Methods for buttons for turning on and off triggers
+    public void MoveForwardButtonPressed(bool isPressed)
     {
-        moveForward = true;
+        moveForward = isPressed;
     }
-    public void ShootButtonPressed()
+    public void ShootButtonPressed(bool isPressed)
     {
-        fireWeapon = true;
+        fireWeapon = isPressed;
     }
-    public void RotateRightButtonPressed()
+    public void RotateRightButtonPressed(bool isPressed)
     {
-        rotate_right = true;
+        rotate_right = isPressed;
     }
-    public void RotateLeftButtonPressed()
+    public void RotateLeftButtonPressed(bool isPressed)
     {
-        rotate_left = true;
-    }
-
-    //Method for turning off all triggers
-    public void NoButtonPressed()
-    {
-        rotate_right = false;
-        rotate_left = false;
-        moveForward = false;
-        fireWeapon = false;
+        rotate_left = isPressed;
     }
 }

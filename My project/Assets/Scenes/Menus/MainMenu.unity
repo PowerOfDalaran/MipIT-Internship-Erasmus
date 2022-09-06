@@ -1049,7 +1049,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'NAZWA GRY BLA BLA BLA '
+  m_Text: ASTEROBLASTER
 --- !u!222 &1880294159
 CanvasRenderer:
   m_ObjectHideFlags: 0

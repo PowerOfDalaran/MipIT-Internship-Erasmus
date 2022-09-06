@@ -4055,14 +4055,14 @@ MonoBehaviour:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
           m_MethodName: MoveForwardButtonPressed
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
@@ -4070,8 +4070,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
-          m_MethodName: NoButtonPressed
-          m_Mode: 1
+          m_MethodName: MoveForwardButtonPressed
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7585,14 +7585,14 @@ MonoBehaviour:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
           m_MethodName: RotateRightButtonPressed
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
@@ -7600,8 +7600,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
-          m_MethodName: NoButtonPressed
-          m_Mode: 1
+          m_MethodName: RotateRightButtonPressed
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8659,14 +8659,14 @@ MonoBehaviour:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
           m_MethodName: RotateLeftButtonPressed
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
@@ -8674,8 +8674,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
-          m_MethodName: NoButtonPressed
-          m_Mode: 1
+          m_MethodName: RotateLeftButtonPressed
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10126,14 +10126,14 @@ MonoBehaviour:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
           m_MethodName: ShootButtonPressed
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
@@ -10141,8 +10141,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1522303626}
           m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
-          m_MethodName: NoButtonPressed
-          m_Mode: 1
+          m_MethodName: ShootButtonPressed
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
