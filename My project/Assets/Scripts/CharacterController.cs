@@ -4,12 +4,11 @@ public class CharacterController : MonoBehaviour
 {
     int damageTreshold = 1;
     [SerializeField] float speed = 3;
-    [SerializeField] float rotationSpeed = 0.1f;
-    float maxHealth = 20;
+    [SerializeField] float rotationSpeed = 2;
     [SerializeField] float currentHealth;
+    float maxHealth = 20;
     float forceAmount = -10.0f;
-    float torqueDirection = 0.0f;
-    float torqueAmount = 0.5f;
+    float rotatingDirection = 0.0f;
 
     bool rotate_right = false;
     bool rotate_left = false;
@@ -76,15 +75,15 @@ public class CharacterController : MonoBehaviour
         //Choosing direction which player want to rotate
         if(rotate_left)
         {
-            torqueDirection = 1f;
+            rotatingDirection = 1f;
         }
         else if(rotate_right)
         {
-            torqueDirection = -1f;
+            rotatingDirection = -1f;
         }
         else
         {
-            torqueDirection = 0f;
+            rotatingDirection = 0f;
         }
 
         //Checking if player should be killed
@@ -115,10 +114,9 @@ public class CharacterController : MonoBehaviour
         }
 
         //Rotating ship in direction based on trigger
-        if(torqueDirection!=0)
+        if(rotatingDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount);
-            //rigidBody2D.SetRotation(new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z + (torqueDirection * rotationSpeed), gameObject.transform.rotation.w));
+            rigidBody2D.rotation = rigidBody2D.rotation + (rotatingDirection * rotationSpeed);
         }
     }
 
