@@ -8,17 +8,14 @@ public class PlayerClient : MonoBehaviour
 
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
-    public bool IsAlive => health > 0f;
 
     [SerializeField] private float maxHealth;
     [SerializeField] private Transform camTransform;
 
     private string username;
-    private float health;
 
     private void Start()
     {
-        health = maxHealth;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -31,36 +28,33 @@ public class PlayerClient : MonoBehaviour
     {
         transform.position = newPosition;
 
-        if(!IsLocal)
+        if (!IsLocal)
         {
             camTransform.forward = forward;
         }
     }
 
-    public void SetHealth(float amount)
-    {
-        health = Mathf.Clamp(amount, 0f, maxHealth);
-        UIManagerClient.Singleton.HealthUpdated(health, maxHealth, true);
-    }
+    //public void SetHealth(float amount)
+    //{
+    //    health = Mathf.Clamp(amount, 0f, maxHealth);
+    //    UIManagerClient.Singleton.HealthUpdated(health, maxHealth, true);
+    //}
 
     public void Died(Vector2 position)
     {
         transform.position = position;
-        health = 0f;
-        model.SetActive(false);
+       // Destroy(gameObject);
 
-        if (IsLocal)
-            UIManagerClient.Singleton.HealthUpdated(health, maxHealth, true);
     }
 
-    public void Respawned(Vector2 position)
-    {
-        transform.position = position;
-        health = maxHealth;
+    //public void Respawned(Vector2 position)
+    //{
+    //    transform.position = position;
+    //    health = maxHealth;
 
-        if (IsLocal)
-            UIManagerClient.Singleton.HealthUpdated(health, maxHealth, false);
-    }
+    //    if (IsLocal)
+    //        UIManagerClient.Singleton.HealthUpdated(health, maxHealth, false);
+    //}
 
     public static void Spawn(ushort id, string username, Vector3 position)
     {
@@ -83,6 +77,12 @@ public class PlayerClient : MonoBehaviour
         list.Add(id, player);
     }
 
+    [MessageHandler((ushort)ServerToClientId.activeScene)]
+    private static void ActiveScene(Message message)
+    {
+        SceneChanger.MoveToScene(message.GetInt(), message.GetVector2(), null);
+    }
+
     [MessageHandler((ushort)ServerToClientId.playerSpawned)]
     private static void SpawnPlayer(Message message)
     {
@@ -96,4 +96,26 @@ public class PlayerClient : MonoBehaviour
         if (list.TryGetValue(message.GetUShort(), out PlayerClient player))
             player.Move(message.GetVector2(), message.GetVector2());
     }
+
+    //[MessageHandler((ushort)ServerToClientId.playerHealthChanged)]
+    //private static void PlayerHealthChanged(Message message)
+    //{
+    //    if (list.TryGetValue(NetworkManagerClient.Singleton.Client.Id, out PlayerClient player))
+    //        player.SetHealth(message.GetFloat());
+    //}
+
+    [MessageHandler((ushort)ServerToClientId.playerDied)]
+    private static void PlayerDied(Message message)
+    {
+        if (list.TryGetValue(message.GetUShort(), out PlayerClient player))
+            player.Died(message.GetVector2());
+    }
+
+    //[MessageHandler((ushort)ServerToClientId.playerRespawned)]
+    //private static void PlayerRespawned(Message message)
+    //{
+    //    if (list.TryGetValue(message.GetUShort(), out PlayerClient player))
+    //        player.Respawned(message.GetVector2());
+    //}
+
 }
