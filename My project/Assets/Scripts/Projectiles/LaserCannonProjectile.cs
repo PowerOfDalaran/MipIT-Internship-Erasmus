@@ -5,7 +5,15 @@ public class LaserCannonProjectile : Projectile
         base.Awake();
 
         //Setting the features of this specific projectile
+<<<<<<< Updated upstream
         projectileSpeed = 10;
         maxLifespan = 10;
     }
 }
+=======
+        damage = 1;
+        projectileSpeed = 10;
+        maxLifespan = 10;
+    }
+}
+>>>>>>> Stashed changes

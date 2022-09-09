@@ -4,6 +4,11 @@ public abstract class Projectile : MonoBehaviour
 {
     protected float projectileSpeed;
     float currentLifespan;
+<<<<<<< Updated upstream
+=======
+    public float damage;
+    public int durability = 1;
+>>>>>>> Stashed changes
 
     protected int maxLifespan;
 
@@ -24,7 +29,11 @@ public abstract class Projectile : MonoBehaviour
         //Increasing current lifespan of projectile and Checking if projectile crossed his maximum lifespan, and if he did - destroying the projectile
         currentLifespan += Time.deltaTime;
 
+<<<<<<< Updated upstream
         if(currentLifespan >= maxLifespan)
+=======
+        if (currentLifespan >= maxLifespan)
+>>>>>>> Stashed changes
         {
             DestroyProjectile();
         }
@@ -39,7 +48,11 @@ public abstract class Projectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //Destroying projectile on contact if it touched anything other than player, teleport or other projectile
+<<<<<<< Updated upstream
         if(other.gameObject.tag != "Player" && other.gameObject.tag != "Projectile" && other.gameObject.tag != "Teleport")
+=======
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Projectile" && other.gameObject.tag != "Teleport")
+>>>>>>> Stashed changes
         {
             DestroyProjectile();
         }
@@ -59,3 +72,4 @@ public abstract class Projectile : MonoBehaviour
         return false;
     }
 }
+
