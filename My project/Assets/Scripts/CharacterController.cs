@@ -33,6 +33,7 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         //Temporary trigger for testing the game with keyboards
+        /*
         if(Input.GetKey(KeyCode.Space))
         {
             fireWeapon = true;
@@ -65,6 +66,7 @@ public class CharacterController : MonoBehaviour
         {
             moveForward = false;
         }
+        */
 
         //Choosing direction which player want to rotate
         if(rotate_left)
