@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
@@ -6,12 +7,9 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] float maxSpawnRate = 1;
     [SerializeField] float minSpawnRate = 3;
 
-    [SerializeField] AsteroidSpawnPoint[] possiblePositions;
+    [SerializeField] AsteroidSpawnPoint[] possibleSpawnPoints;
 
-    [SerializeField] GameObject smallAsteroidPrefab;
-    [SerializeField] GameObject mediumAsteroidPrefab;
-    [SerializeField] GameObject bigAsteroidPrefab;
-    [SerializeField] GameObject hugeAsteroidPrefab;
+    [SerializeField] GameObject asteroidPrefab;
 
     void Awake()
     {
@@ -25,68 +23,48 @@ public class AsteroidSpawner : MonoBehaviour
 
         StartCoroutine("SpawnAsteroidsWithDelay", spawnDelay);
     }
-    
-    //Spawning asteroid
-    void SpawnAsteroid()
-    {
-        //Randomizing mass and getting id of the layer
-        GameObject randomizedPrefab = null;
-        int asteroidLayer = LayerMask.NameToLayer("NewAsteroid");
-        float mass = Random.Range(1, 4);
-
-        //Adding one point to counter of existing asteroids
-        AsteroidOnlyGM.existingAsteroids++;
-
-        //Choosing prefab basing on randomized mass
-        switch(mass)
-        {
-            case 4:
-                randomizedPrefab = hugeAsteroidPrefab;
-                break;
-            case 3:
-                randomizedPrefab = bigAsteroidPrefab;
-                break;
-            case 2:
-                randomizedPrefab = mediumAsteroidPrefab;
-                break;
-            case 1:
-                randomizedPrefab = smallAsteroidPrefab;
-                break;
-            default:
-                Debug.Log("An error has occured.");
-                break;
-        }
-
-        //Randomizing spawn range from the array and then again randomizing actual spawn point
-        int randomizedPositions = Random.Range(0, possiblePositions.Length - 1);
-
-        float randomizedXPosition = Random.Range(possiblePositions[randomizedPositions].minXSpawnPoint, possiblePositions[randomizedPositions].maxXSpawnPoint);
-        float randomizedYPosition = Random.Range(possiblePositions[randomizedPositions].minYSpawnPoint, possiblePositions[randomizedPositions].maxYSpawnPoint);
-
-        Vector2 spawnPoint = new Vector2(randomizedXPosition, randomizedYPosition);
-
-        //Randomizing the rotation of spawned asteroid
-        float angle = Random.Range(-15f, 15f);
-        Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-        
-        //Spawning asteroid, setting its mass and layer
-        AsteroidController spawnedAsteroid = Instantiate(randomizedPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
-        
-        spawnedAsteroid.gameObject.GetComponent<Rigidbody2D>().mass = mass;
-        spawnedAsteroid.gameObject.layer = asteroidLayer;
-        
-        //Calculating the direction of generated asteroid and throwing it in chosen direction
-        Vector2 direction = rotation * -spawnPoint;
-        spawnedAsteroid.ShoveAtRandom(mass, direction);
-    }
 
     //Enumerator initializating asteroid spawning (with delay), while number of existing asteroids is smaller than chosen limit
     IEnumerator SpawnAsteroidsWithDelay(float delay)
     {
         while(AsteroidOnlyGM.asteroidLimit > AsteroidOnlyGM.existingAsteroids)
         {
-            SpawnAsteroid();
+            //Randomizing spawn range from the array and then again randomizing actual spawn point
+            int randomizedSpawnPoint = Random.Range(0, possibleSpawnPoints.Length);
+
+            float randomizedXPosition = Random.Range(possibleSpawnPoints[randomizedSpawnPoint].minXSpawnPoint, possibleSpawnPoints[randomizedSpawnPoint].maxXSpawnPoint);
+            float randomizedYPosition = Random.Range(possibleSpawnPoints[randomizedSpawnPoint].minYSpawnPoint, possibleSpawnPoints[randomizedSpawnPoint].maxYSpawnPoint);
+
+            Vector2 chosenSpawnPoint = new Vector2(randomizedXPosition, randomizedYPosition);
+
+            //Spawning asteroid on randomized point and waiting the delay time
+            SpawnAsteroid(chosenSpawnPoint);
             yield return new WaitForSeconds(delay);
         }
+    }
+
+    //Spawning asteroid in chosen point
+    void SpawnAsteroid(Vector2 spawnPoint)
+    {
+        //Accessing id of the layer and randomizing mass
+        int asteroidLayer = LayerMask.NameToLayer("NewAsteroid");
+        int mass = Random.Range(1, 5);
+
+        //Adding point to the counter of existing asteroids, randomizing angle and creating rotation for new asteroid
+        AsteroidOnlyGM.existingAsteroids++;
+
+        float angle = Random.Range(-15f, 15f);
+        Quaternion rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+        
+        //Instantiating new asteroid and calling its initializating method
+        AsteroidController spawnedAsteroid = Instantiate(asteroidPrefab, spawnPoint, rotation).GetComponent<AsteroidController>();
+        
+        spawnedAsteroid.InitializateAsteroid(mass);
+
+        //Setting asteroid layer and shoving it in calculated direction
+        spawnedAsteroid.gameObject.layer = asteroidLayer;
+        
+        Vector2 direction = rotation * -spawnPoint;
+        spawnedAsteroid.ShoveAtRandom(direction);
     }
 }

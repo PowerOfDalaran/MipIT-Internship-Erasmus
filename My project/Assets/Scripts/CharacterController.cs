@@ -2,18 +2,22 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    int damageTreshold = 1;
     [SerializeField] float speed = 3;
-    [SerializeField] float rotationSpeed = 3;
+    [SerializeField] float rotationSpeed = 2;
+    [SerializeField] float currentHealth;
+    float maxHealth = 20;
     float forceAmount = -10.0f;
-    float torqueDirection = 0.0f;
-    float torqueAmount = 0.5f;
+    float rotatingDirection = 0.0f;
 
     bool rotate_right = false;
     bool rotate_left = false;
     bool moveForward = false;
     bool fireWeapon = false;
+    bool respawning = false;
 
     Weapon currentWeapon;
+    Animator characterAnimator;
     Rigidbody2D rigidBody2D;
     GameObject flame;
     GameObject impact02;
@@ -22,9 +26,11 @@ public class CharacterController : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         currentWeapon = gameObject.GetComponent<Weapon>();
+        currentHealth = maxHealth;
 
         //Variables for flame object(image with animation) and death animation
         flame = GameObject.Find("flame");
+        characterAnimator = gameObject.GetComponent<Animator>();
 
         impact02 = GameObject.Find("Impact02");
         impact02.SetActive(false);
@@ -71,19 +77,26 @@ public class CharacterController : MonoBehaviour
         //Choosing direction which player want to rotate
         if(rotate_left)
         {
-            torqueDirection = 1f;
+            rotatingDirection = 1f;
         }
         else if(rotate_right)
         {
-            torqueDirection = -1f;
+            rotatingDirection = -1f;
         }
         else
         {
-            torqueDirection = 0f;
+            rotatingDirection = 0f;
         }
 
-        //Activating weapon
-        if (fireWeapon)
+        //Checking if player should be killed
+        if(currentHealth <= 0)
+        {
+            impact02.SetActive(true);
+            KillPlayer();
+        }
+
+        //Activating weapon if player isn't respawning
+        if (fireWeapon && respawning != true)
         {
             currentWeapon.Fire();
         }
@@ -103,32 +116,61 @@ public class CharacterController : MonoBehaviour
         }
 
         //Rotating ship in direction based on trigger
-        if(torqueDirection!=0)
+        if(rotatingDirection!=0)
         {
-            rigidBody2D.AddTorque(torqueDirection * torqueAmount * rotationSpeed);
+            rigidBody2D.rotation = rigidBody2D.rotation + (rotatingDirection * rotationSpeed);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Killing the player if he got hit by asteroid or flied into deathzone and activating explosion animation
-        if(collision.gameObject.tag == "Asteroid" || collision.gameObject.tag == "DeathZone")
+        //Dealing damage to player if he flied into asteroid
+        if(collision.gameObject.tag == "Asteroid")
+        {
+            float damage = collision.relativeVelocity.magnitude * collision.gameObject.GetComponent<Rigidbody2D>().mass;
+            DealDamage(damage);
+
+            //Dealing damage to asteroid
+            collision.gameObject.GetComponent<AsteroidController>().DealDamage(1);
+        }
+        //Dealing damage to player if he flied into terrain
+        else if(collision.gameObject.tag == "Obstacle")
+        {
+            float damage = collision.relativeVelocity.magnitude;
+            DealDamage(damage);
+
+        }
+        //Killing player if he flied into deathzone and activating explosion animation
+        else if(collision.gameObject.tag == "DeathZone")
         {
             impact02.SetActive(true);
             KillPlayer();
         }
     }
 
+    //Dealing damage to player character
+    public void DealDamage(float damage)
+    {
+        Debug.Log(damage);
+        if(damage >= damageTreshold)
+        {
+            currentHealth -= damage;
+        }
+    }
+
     //Method killing the player and starting his respawn at original position
     void KillPlayer()
     {
-        //Changing position of player and resetting his velocity
+        //Changing position of player, resetting his velocity and health
         transform.position = new Vector2(0f, 0f);
         rigidBody2D.velocity = Vector2.zero;
         rigidBody2D.angularVelocity = 0f;
+        currentHealth = maxHealth;
 
-        //Activating invcibility and invoking deactivation of his incibility
+        //Activating invcibility, turning on respawning animation, blocking shooting and invoking deactivation of his incibility
         TurnOffVisibility();
+        characterAnimator.SetBool("respawned", true);
+        respawning = true;
         Invoke("TurnOnVisibility", 6f);
     }
 
@@ -142,32 +184,27 @@ public class CharacterController : MonoBehaviour
     void TurnOnVisibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Ship");
+        
+        //Deactivating respawning animation and allowing player to shoot
+        characterAnimator.SetBool("respawned", false);
+        respawning = false;
     }
 
-    //Methods for buttons for turning on triggers
-    public void MoveForwardButtonPressed()
+    //Methods for buttons for turning on and off triggers
+    public void MoveForwardButtonPressed(bool isPressed)
     {
-        moveForward = true;
+        moveForward = isPressed;
     }
-    public void ShootButtonPressed()
+    public void ShootButtonPressed(bool isPressed)
     {
-        fireWeapon = true;
+        fireWeapon = isPressed;
     }
-    public void RotateRightButtonPressed()
+    public void RotateRightButtonPressed(bool isPressed)
     {
-        rotate_right = true;
+        rotate_right = isPressed;
     }
-    public void RotateLeftButtonPressed()
+    public void RotateLeftButtonPressed(bool isPressed)
     {
-        rotate_left = true;
-    }
-
-    //Method for turning off all triggers
-    public void NoButtonPressed()
-    {
-        rotate_right = false;
-        rotate_left = false;
-        moveForward = false;
-        fireWeapon = false;
+        rotate_left = isPressed;
     }
 }
